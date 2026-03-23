@@ -1,4 +1,4 @@
-# Task List 02 — Combinatorics for Probability (Step-by-Step Solutions)
+# Task List 02 — Combinatorics for Probability 
 
 ## Introduction
 
