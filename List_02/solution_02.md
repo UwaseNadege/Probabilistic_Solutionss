@@ -1,208 +1,184 @@
 # Task 2 — Hypergeometric Model (Sampling from a Batch)
 
----
+## Introduction
+We analyze a sampling process using the **hypergeometric distribution**, where elements are drawn **without replacement** from a finite population.
 
-## **Problem**
+We are given:
 
-A warehouse contains 20 components, of which:
-- 5 are **defective**,  
-- 15 are **functional**.  
-
-We randomly select **4 components without replacement** for inspection.
-
-### **Tasks**
-
-1. Describe the random experiment.  
-2. Define the random variable \(X\) as the number of defective elements in the sample.  
-3. Determine the possible values of \(X\).  
-4. Provide the probability distribution.  
-5. Explain what a success means in this model.  
+- Total components: 20  
+- Defective components: 5  
+- Functional components: 15  
+- Sample size: 4  
 
 ---
 
-## **1. Description of the Random Experiment**
+## 1. Random Experiment
 
-We randomly select **4 components from 20**, one after another, **without replacement**.
-
-- “Without replacement” means:
-  - once a component is selected, it is **not returned**,  
-  - so probabilities **change during the process**.
+We randomly select 4 components without replacement from a batch of 20.
 
 Each selected component can be:
-- defective (D),  
-- functional (F).  
 
-- **Important idea:**  
-Because we do not replace items, the trials are **not independent**.
+- Defective (D)  
+- Functional (F)  
 
 ---
 
-## **2. Definition of the Random Variable**
+## 2. Random Variable
 
-We define:
+Let:
 
-$$
-X = \text{number of defective components in the sample of 4}
-$$
-
-- So \(X\) counts how many defectives appear in the selected group.
+X = number of defective components in the sample of 4  
 
 ---
 
-## **3. Possible Values of \(X\)**
+## 3. Possible Values of X
 
-- Minimum value:  
-  - we could select **no defective components** → \(X = 0\)
+X ∈ {0, 1, 2, 3, 4}
 
-- Maximum value:  
-  - there are only 5 defective components total,  
-  - but we only draw 4 → maximum is \(X = 4\)
+---
 
-So:
+## 4. Probability Distribution
+
+The hypergeometric probability formula is:
 
 $$
-X \in \{0, 1, 2, 3, 4\}
+P(X = k) = \frac{\binom{5}{k} \binom{15}{4-k}}{\binom{20}{4}}
 $$
 
 ---
 
-## **4. Probability Distribution**
-
-This is a **hypergeometric model** because:
-
-- finite population (20 components),  
-- two types (defective / functional),  
-- sampling **without replacement**.
-
----
-
-### **General Formula**
+### Step 1 — Total Number of Samples
 
 $$
-P(X = k) =
-\frac{C(5,k) \cdot C(15, 4-k)}{C(20,4)}
-$$
-
-- **Explanation of the formula:**
-
-  - \(C(5,k)\): choose \(k\) defective components from 5  
-  - \(C(15,4-k)\): choose the remaining components from 15 functional ones  
-  - \(C(20,4)\): total ways to choose 4 components  
-
----
-
-### **Compute the denominator**
-
-$$
-C(20,4) =
-\frac{20!}{4! \cdot 16!} \\
-= 4,845
+\binom{20}{4} = 4845
 $$
 
 ---
 
-### **Now compute probabilities**
+### Step 2 — Compute Each Probability
 
-#### **For \(X = 0\)**
-
-$$
-P(X=0) =
-\frac{C(5,0)\cdot C(15,4)}{C(20,4)} \\
-= \frac{1 \cdot 1,365}{4,845} \\
-= \frac{1,365}{4,845}
-$$
-
----
-
-#### **For \(X = 1\)**
+#### **P(X = 0)**
 
 $$
-P(X=1) =
-\frac{C(5,1)\cdot C(15,3)}{C(20,4)} \\
-= \frac{5 \cdot 455}{4,845} \\
-= \frac{2,275}{4,845}
+P(X = 0) = \frac{\binom{5}{0} \binom{15}{4}}{\binom{20}{4}}
+$$
+
+$$
+= \frac{1 \cdot 1365}{4845}
+$$
+
+$$
+= \frac{1365}{4845} \approx 0.2817
 $$
 
 ---
 
-#### **For \(X = 2\)**
+#### **P(X = 1)**
 
 $$
-P(X=2) =
-\frac{C(5,2)\cdot C(15,2)}{C(20,4)} \\
-= \frac{10 \cdot 105}{4,845} \\
-= \frac{1,050}{4,845}
+P(X = 1) = \frac{\binom{5}{1} \binom{15}{3}}{\binom{20}{4}}
 $$
 
----
-
-#### **For \(X = 3\)**
+$$
+= \frac{5 \cdot 455}{4845}
+$$
 
 $$
-P(X=3) =
-\frac{C(5,3)\cdot C(15,1)}{C(20,4)} \\
-= \frac{10 \cdot 15}{4,845} \\
-= \frac{150}{4,845}
+= \frac{2275}{4845} \approx 0.4696
 $$
 
 ---
 
-#### **For \(X = 4\)**
+#### **P(X = 2)**
 
 $$
-P(X=4) =
-\frac{C(5,4)\cdot C(15,0)}{C(20,4)} \\
-= \frac{5 \cdot 1}{4,845} \\
-= \frac{5}{4,845}
+P(X = 2) = \frac{\binom{5}{2} \binom{15}{2}}{\binom{20}{4}}
+$$
+
+$$
+= \frac{10 \cdot 105}{4845}
+$$
+
+$$
+= \frac{1050}{4845} \approx 0.2167
 $$
 
 ---
 
-### **Summary Table**
+#### **P(X = 3)**
 
-| \(X\) | Probability |
-|------|------------|
-| 0 | $1365 / 4845$ |
-| 1 | $2275 / 4845$ |
-| 2 | $1050 / 4845$ |
-| 3 | $150 / 4845$ |
-| 4 | $5 / 4845$ |
+$$
+P(X = 3) = \frac{\binom{5}{3} \binom{15}{1}}{\binom{20}{4}}
+$$
+
+$$
+= \frac{10 \cdot 15}{4845}
+$$
+
+$$
+= \frac{150}{4845} \approx 0.0310
+$$
 
 ---
 
-## **5. Definition of Success**
-
-We define:
+#### **P(X = 4)**
 
 $$
-\text{Success} = \text{"a selected component is defective"}
+P(X = 4) = \frac{\binom{5}{4} \binom{15}{0}}{\binom{20}{4}}
 $$
 
-So:
+$$
+= \frac{5 \cdot 1}{4845}
+$$
 
-- Each time we pick a defective component → it counts as **1 success**  
-- The random variable \(X\) counts the **total number of successes**
+$$
+= \frac{5}{4845} \approx 0.0010
+$$
 
 ---
 
-## ✅ **Final Interpretation**
+## 5. Definition of Success
 
-This is a **hypergeometric distribution**:
-
-$$
-X \sim \text{Hypergeometric}(N=20, K=5, n=4)
-$$
-
-where:
-
-- \(N = 20\): total components  
-- \(K = 5\): defective components  
-- \(n = 4\): number of draws  
+Success = selecting a defective component
 
 ---
 
-## 🧠 **Key Idea**
+## 6. Final Summary
 
-- We are selecting **without replacement**,  
-- so probabilities **change after each draw**,  
-- which is why we use the **hypergeometric model instead of binomial**.
+- Model: Hypergeometric distribution  
+- Population size: 20  
+- Defective elements: 5  
+- Sample size: 4  
+
+---
+
+### Final Probability Distribution
+
+$$
+P(X = 0) \approx 0.2817
+$$
+
+$$
+P(X = 1) \approx 0.4696
+$$
+
+$$
+P(X = 2) \approx 0.2167
+$$
+
+$$
+P(X = 3) \approx 0.0310
+$$
+
+$$
+P(X = 4) \approx 0.0010
+$$
+
+---
+
+## ✅ Key Insight
+
+Unlike the binomial model:
+
+- The probability changes after each draw  
+- Because sampling is done **without replacement**
