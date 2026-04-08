@@ -1,138 +1,196 @@
-# Task List 03 — Algebra of Events and Conditional Probability
-
-> **Note:** This task list is still being developed. Exercises are placeholders for future work.
+# Task 1 — Binomial Model (Quality Control)
 
 ---
 
-## **Introduction**
+## **Problem**
 
-Probability theory studies not only **numerical probabilities**, but also the **structure of events** and their relations.  
+In a factory, screws are produced. Each screw can be either **good** or **defective**.  
+The probability that a randomly selected screw is defective equals \(p\).  
 
-Key concepts to understand before computing probabilities:
+Assume that:
+- inspections are **independent**,  
+- the probability \(p\) is the **same for each screw**.  
 
-- What an **event** is  
-- How events can be **combined**  
-- How to describe events using **set operations**  
-- How probabilities behave under **union, intersection, complement**  
-- How additional information affects **conditional probability**
+We consider an experiment consisting of checking **3 consecutive screws**.
 
-This list focuses on two closely connected topics:
+### **Tasks**
 
-1. **Algebra of Events**  
-2. **Conditional Probability**
-
-Main goal: fluently move between:
-
-- Verbal descriptions of events  
-- Set-theoretic notation  
-- Probability formulas  
-- Concrete probabilistic models  
+1. Describe the random experiment.  
+2. Determine the sample space \( \Omega \).  
+3. Specify the probabilities of the elements of the sample space.  
+4. Define what is considered a success in this model.  
 
 ---
 
-## **Theoretical Background**
+## **1. Description of the Random Experiment**
 
-### **Random Experiment, Sample Space, and Events**
+We inspect **3 screws one after another**.
 
-- A **random experiment**: a process whose outcome cannot be predicted with certainty.  
-- **Sample space**: $\Omega$, set of all possible **elementary outcomes**.  
-- **Elementary event**: a one-element subset of $\Omega$.  
-- **Event**: any subset $A \subseteq \Omega$.
+For each screw, there are **two possible outcomes**:
 
----
+- \(D\) — defective  
+- \(G\) — good  
 
-### **Event as a Set**
-
-Events are treated as **sets**. Therefore, operations on events = operations on sets:
-
-- **Union:** $A \cup B$ = at least one occurs  
-- **Intersection:** $A \cap B$ = both occur  
-- **Complement:** $A^c$ = $A$ does not occur  
-- **Difference:** $A \setminus B$ = $A$ occurs but $B$ does not  
-
----
-
-### **Special Types of Events**
-
-- **Mutually Exclusive / Disjoint:** $A \cap B = \emptyset$  
-- **Certain event:** $\Omega$, probability $P(\Omega) = 1$  
-- **Impossible event:** $\emptyset$, probability $P(\emptyset) = 0$
-
----
-
-### **Basic Probability Properties**
-
-- $0 \le P(A) \le 1$  
-- $P(A \cup B) = P(A) + P(B)$ for disjoint events  
-- **Complement rule:** $P(A^c) = 1 - P(A)$  
-- **Inclusion–Exclusion:** $P(A \cup B) = P(A) + P(B) - P(A \cap B)$  
-
----
-
-### **Conditional Probability**
-
-- $P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0$  
-- **Multiplication rule:** $P(A \cap B) = P(B) P(A \mid B) = P(A) P(B \mid A)$  
-
----
-
-### **Independence of Events**
-
-- $A$ and $B$ independent if $P(A \cap B) = P(A) P(B)$  
-- Equivalent: $P(A \mid B) = P(A)$ if $P(B) > 0$  
-- Independence ≠ mutual exclusivity  
-
----
-
-### **Law of Total Probability**
-
-- If $\{B_1, B_2, \dots, B_n\}$ forms a partition of $\Omega$, then:
+So the experiment consists of **3 independent trials**, each with the same probabilities:
 
 $$
-P(A) = \sum_{i=1}^n P(A \mid B_i) P(B_i)
+P(D) = p, \quad P(G) = 1 - p
+$$
+
+- **Why?**  
+Because each screw has the same chance of being defective and inspections do not affect each other.
+
+---
+
+## **2. Sample Space \( \Omega \)**
+
+- Each outcome is a **sequence of 3 results** (because we inspect 3 screws).  
+- Each position can be either \(D\) or \(G\).  
+
+Number of outcomes:
+
+$$
+2^3 = 8
+$$
+
+- **Sample space:**
+
+$$
+\Omega =
+\{DDD, DDG, DGD, DGG, GDD, GDG, GGD, GGG\}
+$$
+
+- **Explanation:**  
+Each of the 3 positions has 2 choices → multiply:
+
+$$
+2 \cdot 2 \cdot 2 = 8
 $$
 
 ---
 
-### **Bayes’ Formula**
+## **3. Probabilities of the Elements of \( \Omega \)**
 
-- For $B_1, \dots, B_n$ partition of $\Omega$, $P(A) > 0$:
+Because the trials are **independent**, the probability of any sequence is:
 
 $$
-P(B_k \mid A) = \frac{P(A \mid B_k) P(B_k)}{\sum_{i=1}^n P(A \mid B_i) P(B_i)}
+P(\text{sequence}) = \text{product of probabilities of each position}
 $$
 
-- Allows **reversing conditional probabilities**.
+---
+
+### **Examples**
+
+#### **All defective**
+
+$$
+P(DDD) =
+p \cdot p \cdot p \\
+= p^3
+$$
+
+- **Explanation:** All three screws are defective → multiply \(p\) three times.
 
 ---
 
-### **How to Read Event Statements Correctly**
+#### **Two defective, one good (example: DDG)**
 
-- “At least one” → often **complement**  
-- “Exactly one” → separate cases  
-- “Both” → **intersection**  
-- “At least one of” → **union**  
-- “Given that” → **conditional probability**
+$$
+P(DDG) =
+p \cdot p \cdot (1-p) \\
+= p^2(1-p)
+$$
 
----
-
-## **Task 01 – Basic Event Notation and Set Operations**
-
-For each random experiment:
-
-1. **Define the sample space** $\Omega$  
-2. **Define events in words**  
-3. **Write corresponding unions, intersections, complements, differences**
-
-### **Experiments & Event Descriptions**
-
-| Experiment | Event Statements |
-|------------|----------------|
-| One toss of a coin | Result is heads, result is not tails |
-| One roll of a fair die | Die shows an even number, die shows a number > 3 |
-| Two tosses of a coin | At least one head, both tosses give the same result |
-| Drawing one card from a deck | Card is a heart, card is a face card |
+- **Explanation:** Two defective (\(p\)) and one good (\(1-p\)).
 
 ---
 
-> **Note:** Actual computations, probabilities, and solutions will be developed once exercises are finalized.
+#### **One defective, two good (example: DGG)**
+
+$$
+P(DGG) =
+p \cdot (1-p) \cdot (1-p) \\
+= p(1-p)^2
+$$
+
+---
+
+#### **All good**
+
+$$
+P(GGG) =
+(1-p)^3
+$$
+
+---
+
+### **All Probabilities**
+
+| Outcome | Probability |
+|--------|------------|
+| DDD | $p^3$ |
+| DDG | $p^2(1-p)$ |
+| DGD | $p^2(1-p)$ |
+| GDD | $p^2(1-p)$ |
+| DGG | $p(1-p)^2$ |
+| GDG | $p(1-p)^2$ |
+| GGD | $p(1-p)^2$ |
+| GGG | $(1-p)^3$ |
+
+- **Important idea:**  
+Sequences with the same number of defective screws have the same probability.
+
+---
+
+## **4. Definition of Success**
+
+In this model, we define:
+
+$$
+\text{Success} = \text{"a screw is defective"}
+$$
+
+So:
+
+$$
+P(\text{success}) = p
+$$
+
+---
+
+### **Why this choice?**
+
+- In a **binomial model**, we count the number of “successes”  
+- Here we are interested in **defective screws** (quality control problem)  
+- So it is natural to treat **defect = success**
+
+---
+
+## ✅ **Final Interpretation**
+
+This experiment is a **binomial experiment** because:
+
+- Fixed number of trials:
+
+$$
+n = 3
+$$
+
+- Two outcomes: defective or good  
+- Constant probability \(p\)  
+- Independent trials  
+
+So the number of defective screws follows:
+
+$$
+X \sim \text{Bin}(3, p)
+$$
+
+---
+
+## 🧠 **Key Idea**
+
+We are not just listing outcomes — we are building a model that allows us to:
+
+- count how many defective screws appear,  
+- and compute probabilities using the binomial distribution.
