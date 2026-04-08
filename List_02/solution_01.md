@@ -1,196 +1,149 @@
 # Task 1 — Binomial Model (Quality Control)
 
----
+## Introduction
+We analyze a quality control process using the **binomial distribution**, where each trial has only two possible outcomes:
 
-## **Problem**
+- Good screw (G)
+- Defective screw (D)
 
-In a factory, screws are produced. Each screw can be either **good** or **defective**.  
-The probability that a randomly selected screw is defective equals \(p\).  
+We assume:
 
-Assume that:
-- inspections are **independent**,  
-- the probability \(p\) is the **same for each screw**.  
-
-We consider an experiment consisting of checking **3 consecutive screws**.
-
-### **Tasks**
-
-1. Describe the random experiment.  
-2. Determine the sample space \( \Omega \).  
-3. Specify the probabilities of the elements of the sample space.  
-4. Define what is considered a success in this model.  
+- Each inspection is **independent**
+- The probability of a defective screw is **p**
+- The probability of a good screw is **1 - p**
 
 ---
 
-## **1. Description of the Random Experiment**
+## 1. Random Experiment
 
-We inspect **3 screws one after another**.
+We inspect **3 consecutive screws**.
 
-For each screw, there are **two possible outcomes**:
+Each screw can be:
 
-- \(D\) — defective  
-- \(G\) — good  
+- Defective (D)
+- Good (G)
 
-So the experiment consists of **3 independent trials**, each with the same probabilities:
-
-$$
-P(D) = p, \quad P(G) = 1 - p
-$$
-
-- **Why?**  
-Because each screw has the same chance of being defective and inspections do not affect each other.
+Thus, the experiment consists of observing the sequence of outcomes for 3 screws.
 
 ---
 
-## **2. Sample Space \( \Omega \)**
+## 2. Sample Space
 
-- Each outcome is a **sequence of 3 results** (because we inspect 3 screws).  
-- Each position can be either \(D\) or \(G\).  
+For one screw:
 
-Number of outcomes:
+Ω₁ = {D, G}
 
-$$
-2^3 = 8
-$$
+For three screws:
 
-- **Sample space:**
-
-$$
-\Omega =
-\{DDD, DDG, DGD, DGG, GDD, GDG, GGD, GGG\}
-$$
-
-- **Explanation:**  
-Each of the 3 positions has 2 choices → multiply:
-
-$$
-2 \cdot 2 \cdot 2 = 8
-$$
+Ω₃ = { (x₁, x₂, x₃) : xᵢ ∈ {D, G} }
 
 ---
 
-## **3. Probabilities of the Elements of \( \Omega \)**
+### All Possible Outcomes
 
-Because the trials are **independent**, the probability of any sequence is:
-
-$$
-P(\text{sequence}) = \text{product of probabilities of each position}
-$$
-
----
-
-### **Examples**
-
-#### **All defective**
-
-$$
-P(DDD) =
-p \cdot p \cdot p \\
-= p^3
-$$
-
-- **Explanation:** All three screws are defective → multiply \(p\) three times.
+Ω₃ = {  
+DDD, DDG, DGD, DGG,  
+GDD, GDG, GGD, GGG  
+}
 
 ---
 
-#### **Two defective, one good (example: DDG)**
+### Number of Elementary Outcomes
 
-$$
-P(DDG) =
-p \cdot p \cdot (1-p) \\
-= p^2(1-p)
-$$
-
-- **Explanation:** Two defective (\(p\)) and one good (\(1-p\)).
+|Ω₃| = 2³ = 8
 
 ---
 
-#### **One defective, two good (example: DGG)**
+## 3. Probabilities of Elementary Outcomes
 
-$$
-P(DGG) =
-p \cdot (1-p) \cdot (1-p) \\
-= p(1-p)^2
-$$
+Each sequence probability depends on:
 
----
-
-#### **All good**
-
-$$
-P(GGG) =
-(1-p)^3
-$$
+- Number of defective screws → probability p  
+- Number of good screws → probability (1 - p)
 
 ---
 
-### **All Probabilities**
+### General Formula
 
-| Outcome | Probability |
-|--------|------------|
-| DDD | $p^3$ |
-| DDG | $p^2(1-p)$ |
-| DGD | $p^2(1-p)$ |
-| GDD | $p^2(1-p)$ |
-| DGG | $p(1-p)^2$ |
-| GDG | $p(1-p)^2$ |
-| GGD | $p(1-p)^2$ |
-| GGG | $(1-p)^3$ |
+For a sequence with:
 
-- **Important idea:**  
-Sequences with the same number of defective screws have the same probability.
+- k defective screws  
+- (3 - k) good screws  
+
+P(ω) = pᵏ (1 - p)^(3 - k)
 
 ---
 
-## **4. Definition of Success**
+### Explicit Probabilities
 
-In this model, we define:
+- **DDD**  
+P(DDD) = p³  
 
-$$
-\text{Success} = \text{"a screw is defective"}
-$$
+- **DDG, DGD, GDD** (2 defective, 1 good)  
+P = p² (1 - p)  
 
-So:
+- **DGG, GDG, GGD** (1 defective, 2 good)  
+P = p (1 - p)²  
 
-$$
-P(\text{success}) = p
-$$
-
----
-
-### **Why this choice?**
-
-- In a **binomial model**, we count the number of “successes”  
-- Here we are interested in **defective screws** (quality control problem)  
-- So it is natural to treat **defect = success**
+- **GGG**  
+P(GGG) = (1 - p)³  
 
 ---
 
-## ✅ **Final Interpretation**
+## 4. Definition of Success
 
-This experiment is a **binomial experiment** because:
+In this model:
 
-- Fixed number of trials:
+**Success = selecting a defective screw**
 
-$$
-n = 3
-$$
+Thus:
 
-- Two outcomes: defective or good  
-- Constant probability \(p\)  
-- Independent trials  
-
-So the number of defective screws follows:
-
-$$
-X \sim \text{Bin}(3, p)
-$$
+- P(success) = p  
+- P(failure) = 1 - p  
 
 ---
 
-## 🧠 **Key Idea**
+## 5. Random Variable (Binomial Model)
 
-We are not just listing outcomes — we are building a model that allows us to:
+Let:
 
-- count how many defective screws appear,  
-- and compute probabilities using the binomial distribution.
+X = number of defective screws in 3 trials  
+
+Then:
+
+X ~ Binomial(n = 3, p)
+
+---
+
+## 6. Probability Distribution (Final Answers)
+
+The probability of exactly k defective screws:
+
+P(X = k) = (3 choose k) pᵏ (1 - p)^(3 - k)
+
+---
+
+### Final Calculated Values
+
+- **P(X = 0)**  
+P(X = 0) = (1 - p)³  
+
+- **P(X = 1)**  
+P(X = 1) = 3p(1 - p)²  
+
+- **P(X = 2)**  
+P(X = 2) = 3p²(1 - p)  
+
+- **P(X = 3)**  
+P(X = 3) = p³  
+
+---
+
+## ✅ Summary
+
+- Total outcomes: **8**  
+- Model: **Binomial distribution**  
+- Success: **defective screw**  
+- Random variable:  
+
+X ~ Binomial(3, p)
