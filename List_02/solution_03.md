@@ -1,4 +1,4 @@
-# 📘 Task 3 — Geometric Model (Waiting for the First Event)
+# Task 3 — Geometric Model (Waiting for the First Event)
 
 ## Introduction
 We analyze a process using the **geometric distribution**, where we observe repeated independent trials until the **first success** occurs.
