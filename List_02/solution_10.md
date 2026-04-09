@@ -78,7 +78,7 @@ $$
 
 - **Analysis:**  
   - First, choose **2 red balls** from 5 → C(5,2)  
-  - Choose **1 non-red ball** from 7 → C(7,1)  
+  - Choose **1 non-red ball** from 7 non-redball → C(7,1)  
   - Then **arrange the 3 balls in order** → 3! permutations  
 
 - **Solution:**  
