@@ -32,12 +32,17 @@ X = number of defective parts among 10 inspected parts
 Then:
 
 $$
-X \sim \text{Binomial}(n = 10,\ p = 0.04)
+X \sim \text{Binomial}(n = 10,\ p = 0.04)  basically  (X follows a binomial distribution with)
 $$
+
+
 
 ---
 
 ## 2. Probability Formula
+
+p= 0.04 and 
+1-p= 0.96
 
 $$
 P(X = k) = \binom{10}{k} (0.04)^k (0.96)^{10-k}
