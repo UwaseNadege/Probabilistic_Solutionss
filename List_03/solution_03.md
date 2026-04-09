@@ -1,226 +1,151 @@
-# Problem 3 — Weather (7 Days × 3 States)
+# Task 3 — Geometric Model (Waiting for the First Event)
+
+## Introduction
+We analyze a process using the **geometric distribution**, where we observe repeated independent trials until the **first success** occurs.
+
+We are given:
+
+- Each page may contain an error with probability **p**
+- Each page is independent
+- The probability of error is the same for every page
 
 ---
 
-## Question
+## 1. Random Experiment
 
-Consider a week described day by day in terms of weather.  
+We observe consecutive printed pages until the **first printing error appears**.
 
-Each day can be:
+Each page can be:
 
-- \( S \) — sunny  
-- \( C \) — cloudy  
-- \( R \) — rainy  
+- Error (E)  
+- No error (N)
 
-Representation:
-
-```
-      Mon Tue Wed Thu Fri Sat Sun
-S     .   .   .   .   .   .   .
-C     .   .   .   .   .   .   .
-R     .   .   .   .   .   .   .
-```
+We continue the process until the first occurrence of an error.
 
 ---
 
-### Part A — Marking Events
+## 2. Sample Space
 
-Mark all outcomes satisfying the statement:
+The sample space consists of all sequences where the **first error appears at some position**.
 
-- Monday is sunny  
-- the weekend (Saturday and Sunday) is rainy  
-- it rains on Wednesday or Friday  
-- there is no rainy day during the week  
-- Thursday is not sunny  
+Examples:
 
----
-
-### Part B — Interpretation
-
-Describe the event represented by each case below:
-
-**Case 1**
-
-```
-      Mon Tue Wed Thu Fri Sat Sun
-S     .   .   .   .   .   X   X
-C     .   .   .   .   .   .   .
-R     .   .   .   .   .   .   .
-```
-
-**Case 2**
-
-```
-      Mon Tue Wed Thu Fri Sat Sun
-S     X   X   X   X   X   X   X
-C     X   X   X   X   X   X   X
-R     .   .   .   .   .   .   .
-```
+- E  
+- N E  
+- N N E  
+- N N N E  
+- and so on...
 
 ---
 
-# 📌 Solution
-
----
-
-## 1. Sample Space
-
-Each day has 3 possible states:
+### General Form of Sample Space
 
 $$
-\Omega = \{S, C, R\}^7
-$$
-
-This means:
-
-- a weekly outcome is a sequence of 7 weather states  
-- each day is independent  
-
----
-
-# 🔹 Part A — Marking Events
-
----
-
-## 1. Monday Is Sunny
-
-Only sequences where:
-
-$$
-\text{Mon} = S
+\Omega = \{ E,\ NE,\ NNE,\ NNNE,\ \dots \}
 $$
 
 ---
 
-## 2. Weekend Is Rainy
+## 3. Random Variable
 
-Saturday and Sunday must be:
+Let:
+
+X = number of pages printed until the first error appears
+
+---
+
+## 4. Probability Distribution
+
+The geometric distribution formula is:
 
 $$
-\text{Sat} = R,\quad \text{Sun} = R
+P(X = k) = (1 - p)^{k - 1} \cdot p
 $$
 
 ---
 
-## 3. It Rains on Wednesday or Friday
+### Explanation
 
-This means:
-
-$$
-\text{Wed} = R \quad \text{OR} \quad \text{Fri} = R
-$$
-
-(Union of two events)
+- The first \( k - 1 \) pages have no error → probability \( (1 - p)^{k-1} \)  
+- The \( k \)-th page contains the first error → probability \( p \)
 
 ---
 
-## 4. No Rainy Day During the Week
+## 5. Probability of Specific Values
 
-For every day:
-
-$$
-\text{Day} \in \{S, C\}
-$$
-
-So:
-
-- no \( R \) anywhere in the week
-
----
-
-## 5. Thursday Is Not Sunny
+### **P(X = 1)**
 
 $$
-\text{Thu} \in \{C, R\}
+P(X = 1) = p
 $$
 
 ---
 
-# 🔹 Part B — Interpretation
-
----
-
-## Case 1
-
-```
-      Mon Tue Wed Thu Fri Sat Sun
-S     .   .   .   .   .   X   X
-C     .   .   .   .   .   .   .
-R     .   .   .   .   .   .   .
-```
-
-### Step 1 — Identify allowed states
-
-- Saturday = S  
-- Sunday = S  
-
-All other days are not restricted.
-
-### Step 2 — Interpretation
-
-This means:
-
-- **Saturday and Sunday are sunny**
-
-### ✅ Event:
+### **P(X = 2)**
 
 $$
-\text{“The weekend is sunny”}
+P(X = 2) = (1 - p)p
 $$
 
 ---
 
-## Case 2
-
-```
-      Mon Tue Wed Thu Fri Sat Sun
-S     X   X   X   X   X   X   X
-C     X   X   X   X   X   X   X
-R     .   .   .   .   .   .   .
-```
-
-### Step 1 — Identify pattern
-
-- All days allow only \( S \) or \( C \)  
-- No \( R \) is allowed at all  
-
-### Step 2 — Interpretation
-
-This means:
-
-- **there is no rainy day during the entire week**
-
-### ✅ Event:
+### **P(X = 3)**
 
 $$
-\text{“No rainy day during the week”}
+P(X = 3) = (1 - p)^2 p
 $$
 
 ---
 
-#  Final Conceptual Understanding
+### **P(X = k)**
 
-- Each week is an element of \( \Omega = \{S,C,R\}^7 \)
-- Each event is a **subset of sequences**
-
----
-
-### Key Ideas:
-
-- Each column = one day  
-- Each row = possible state  
-- Marking = **allowed outcomes**
+$$
+P(X = k) = (1 - p)^{k-1} p
+$$
 
 ---
 
-### Logical Meaning:
+## 6. Definition of Success
 
-| Statement | Meaning |
-|----------|--------|
-| AND | intersection |
-| OR | union |
-| NOT | complement |
+In this model:
+
+**Success = occurrence of a printing error**
+
+Thus:
+
+- Probability of success:
+  
+$$
+P(\text{success}) = p
+$$
+
+- Probability of failure:
+  
+$$
+P(\text{failure}) = 1 - p
+$$
 
 ---
 
-👉 This representation allows us to **see structure across time**, not just list sequences.
+## 7. Final Summary
+
+- Model: **Geometric distribution**  
+- Random variable:  
+
+$$
+X = \text{number of trials until first success}
+$$
+
+- Probability distribution:
+
+$$
+P(X = k) = (1 - p)^{k - 1} p
+$$
+
+---
+
+## ✅ Key Insight
+
+- The process continues until the **first success occurs**
+- Each trial is **independent**
+- The probability of success remains **constant**

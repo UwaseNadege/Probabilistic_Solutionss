@@ -1,149 +1,195 @@
-# Task 1 — Binomial Model (Quality Control)
+# Task List 02 — Combinatorics for Probability 
 
 ## Introduction
-We analyze a quality control process using the **binomial distribution**, where each trial has only two possible outcomes:
 
-- Good screw (G)
-- Defective screw (D)
+Many probability problems start by counting outcomes: the size of a sample space, the number of favorable outcomes, or the number of possible codes or arrangements.  
+The main difficulty is usually **not the formula, but recognizing which counting model applies**.
 
-We assume:
+**Key Questions to Identify the Model:**
 
-- Each inspection is **independent**
-- The probability of a defective screw is **p**
-- The probability of a good screw is **1 - p**
-
----
-
-## 1. Random Experiment
-
-We inspect **3 consecutive screws**.
-
-Each screw can be:
-
-- Defective (D)
-- Good (G)
-
-Thus, the experiment consists of observing the sequence of outcomes for 3 screws.
+1. Does order matter?  
+2. Are we using all objects or only some of them?  
+3. Are repetitions allowed?  
+4. Are objects distinguishable or indistinguishable?  
+5. What kind of outcome are we describing? (set, sequence, linear arrangement, circular arrangement)
 
 ---
 
-## 2. Sample Space
+## Useful Formulas and Models
 
-For one screw:
+1. **Permutation (all objects, order matters, no repetition):**  
 
-Ω₁ = {D, G}
+$$
+P_n = n!
+$$
 
-For three screws:
+2. **Circular Permutation (objects arranged in a circle):**  
 
-Ω₃ = { (x₁, x₂, x₃) : xᵢ ∈ {D, G} }
+$$
+P_\text{circle} = (n-1)!
+$$
 
----
+3. **Combination (unordered selection of some objects, no repetition):**  
 
-### All Possible Outcomes
+$$
+C(n,k) =
+\frac{n!}{k!(n-k)!}
+$$
 
-Ω₃ = {  
-DDD, DDG, DGD, DGG,  
-GDD, GDG, GGD, GGG  
-}
+4. **k-Permutation (ordered selection of some objects, no repetition):**  
 
----
+$$
+P(n,k) =
+\frac{n!}{(n-k)!}
+$$
 
-### Number of Elementary Outcomes
+5. **Sequence with Repetition (ordered selection with repetition allowed):**  
 
-|Ω₃| = 2³ = 8
+$$
+n^k
+$$
 
----
+6. **Permutation with Repeated Elements (some objects identical):**  
 
-## 3. Probabilities of Elementary Outcomes
-
-Each sequence probability depends on:
-
-- Number of defective screws → probability p  
-- Number of good screws → probability (1 - p)
-
----
-
-### General Formula
-
-For a sequence with:
-
-- k defective screws  
-- (3 - k) good screws  
-
-P(ω) = pᵏ (1 - p)^(3 - k)
+$$
+\text{Number of arrangements} =
+\frac{n!}{n_1! \, n_2! \, \dots \, n_r!}
+$$
 
 ---
 
-### Explicit Probabilities
+## Task 1 — Recognizing Counting Models
 
-- **DDD**  
-P(DDD) = p³  
-
-- **DDG, DGD, GDD** (2 defective, 1 good)  
-P = p² (1 - p)  
-
-- **DGG, GDG, GGD** (1 defective, 2 good)  
-P = p (1 - p)²  
-
-- **GGG**  
-P(GGG) = (1 - p)³  
+For each situation, determine which combinatorial model is most appropriate and calculate if needed.
 
 ---
 
-## 4. Definition of Success
+### **Problem 1: Arranging 7 students in a line**
 
-In this model:
+- **Analysis:**  
+  - Using **all objects** (7 students)  
+  - Order matters  
+  - No repetitions  
 
-**Success = selecting a defective screw**
+- **Model:** Permutation  
 
-Thus:
+- **Solution:**  
 
-- P(success) = p  
-- P(failure) = 1 - p  
-
----
-
-## 5. Random Variable (Binomial Model)
-
-Let:
-
-X = number of defective screws in 3 trials  
-
-Then:
-
-X ~ Binomial(n = 3, p)
+$$
+P_7 =
+7! \\
+= 7 \cdot 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 \\
+= 5040
+$$
 
 ---
 
-## 6. Probability Distribution (Final Answers)
+### **Problem 2: Choosing 4 members of a committee from 12 people**
 
-The probability of exactly k defective screws:
+- **Analysis:**  
+  - Using **only some objects** (4 out of 12)  
+  - Order does **not** matter  
+  - No repetition  
 
-P(X = k) = (3 choose k) pᵏ (1 - p)^(3 - k)
+- **Model:** Combination  
 
----
+- **Solution:**  
 
-### Final Calculated Values
-
-- **P(X = 0)**  
-P(X = 0) = (1 - p)³  
-
-- **P(X = 1)**  
-P(X = 1) = 3p(1 - p)²  
-
-- **P(X = 2)**  
-P(X = 2) = 3p²(1 - p)  
-
-- **P(X = 3)**  
-P(X = 3) = p³  
+$$
+C(12,4) =
+\frac{12!}{4!(12-4)!} \\
+= \frac{12!}{4! \cdot 8!} \\
+= 495
+$$
 
 ---
 
-## ✅ Summary
+### **Problem 3: Assigning gold, silver, and bronze medals among 15 athletes**
 
-- Total outcomes: **8**  
-- Model: **Binomial distribution**  
-- Success: **defective screw**  
-- Random variable:  
+- **Analysis:**  
+  - Using **only some objects** (3 out of 15)  
+  - Order matters (gold ≠ silver ≠ bronze)  
+  - No repetition  
 
-X ~ Binomial(3, p)
+- **Model:** k-Permutation  
+
+- **Solution:**  
+
+$$
+P(15,3) =
+\frac{15!}{(15-3)!} \\
+= \frac{15!}{12!} \\
+= 2730
+$$
+
+---
+
+### **Problem 4: Forming a 6-digit PIN code**
+
+- **Analysis:**  
+  - Using **only some objects** (digits 0–9, total 10)  
+  - Order matters  
+  - Repetition allowed  
+
+- **Model:** Sequence with Repetition  
+
+- **Solution:**  
+
+$$
+\text{Number of PIN codes} =
+10^6 \\
+= 1,000,000
+$$
+
+---
+
+### **Problem 5: Arranging the letters of the word BANANA**
+
+- **Analysis:**  
+  - Using **all objects** (letters of BANANA)  
+  - Order matters  
+  - Some objects identical (A×3, N×2, B×1)  
+
+- **Model:** Permutation with Repeated Elements  
+
+- **Solution:**  
+
+$$
+\text{Number of arrangements} =
+\frac{6!}{3! \cdot 2! \cdot 1!} \\
+= \frac{720}{6 \cdot 2} \\
+= 60
+$$
+
+---
+
+### **Problem 6: Seating 6 people around a round table**
+
+- **Analysis:**  
+  - Using **all objects** (6 people)  
+  - Arranged in a circle  
+  - Order matters relative to others  
+
+- **Model:** Circular Permutation  
+
+- **Solution:**  
+
+$$
+P_\text{circle} =
+(6-1)! \\
+= 5! \\
+= 120
+$$
+
+---
+
+## ✅ Quick Summary Table
+
+| Problem | Model | Formula | Result |
+|---------|-------|---------|--------|
+| 7 students in a line | Permutation | $P_7 = 7!$ | 5040 |
+| 4-member committee | Combination | $C(12,4) = \frac{12!}{4! \cdot 8!}$ | 495 |
+| Medals among 15 athletes | k-Permutation | $P(15,3) = \frac{15!}{12!}$ | 2730 |
+| 6-digit PIN | Sequence w/ repetition | $10^6$ | 1,000,000 |
+| Letters of BANANA | Perm. w/ repeated | $\frac{6!}{3! \cdot 2! \cdot 1!}$ | 60 |
+| 6 people at round table | Circular Permutation | $(6-1)!$ | 120 |

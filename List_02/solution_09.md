@@ -1,142 +1,95 @@
-# Task 9 — Poisson Model
-
-## Introduction
-We analyze a process using the **Poisson distribution**, which models the number of events occurring in a fixed time interval.
-
-We are given:
-
-- Average number of requests per hour:
-
-$$
-\lambda = 5
-$$
-
-- Requests occur independently at a constant rate
+# Task 9 — Digit Restrictions
 
 ---
 
-## 1. Random Variable
+### **Problem 1: Total 5-digit numbers**
 
-Let:
+- **Analysis:**  
+  - 5-digit numbers → first digit cannot be 0 → choices for first digit = 1–9 = 9  
+  - Remaining 4 digits → each can be 0–9 → 10 choices each  
+  - Repetition allowed  
 
-X = number of requests received in one hour  
+- **Model:** Sequence with Repetition  
 
-Then:
+- **Solution:**  
 
 $$
-X \sim \text{Poisson}(\lambda = 5)
+\text{Total 5-digit numbers} =
+9 \cdot 10 \cdot 10 \cdot 10 \cdot 10 \\
+= 9 \cdot 10^4 \\
+= 90,000
 $$
+
+- **Explanation:** Multiply choices for each position; first digit cannot be 0.
 
 ---
 
-## 2. Probability Formula
+### **Problem 2: 5-digit numbers that are even**
+
+- **Analysis:**  
+  - Last digit must be even → choices = 0,2,4,6,8 → 5 choices  
+  - First digit: 1–9 → 9 choices  
+  - Middle 3 digits: 0–9 → 10 choices each  
+
+- **Solution:**  
 
 $$
-P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
+\text{Even numbers} =
+9 \cdot 10 \cdot 10 \cdot 10 \cdot 5 \\
+= 9 \cdot 10^3 \cdot 5 \\
+= 45,000
 $$
+
+- **Explanation:** First digit cannot be 0, last digit must be even; multiply choices for middle digits.
 
 ---
 
-## 3. Probability of Exactly 3 Requests
+### **Problem 3: 5-digit numbers with no repeated digits**
 
-We compute:
+- **Analysis:**  
+  - First digit: 1–9 → 9 choices  
+  - Second digit: 0–9 except first digit → 9 choices  
+  - Third digit: 8 choices  
+  - Fourth digit: 7 choices  
+  - Fifth digit: 6 choices  
+
+- **Solution:**  
 
 $$
-P(X = 3) = \frac{5^3 e^{-5}}{3!}
+\text{No repeated digits} =
+9 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \\
+= 27,216
 $$
+
+- **Explanation:** Sequentially choose each digit without repetition.
 
 ---
 
-### Step-by-Step Calculation
+### **Problem 4: 5-digit numbers with at least one repeated digit**
+
+- **Analysis:**  
+  - Use **complement principle**  
+  - Total 5-digit numbers = 90,000  
+  - Numbers with all digits different = 27,216  
+  - Subtract to get numbers with at least one repeat  
+
+- **Solution:**  
 
 $$
-5^3 = 125
+\text{At least one repeated digit} =
+90,000 - 27,216 \\
+= 62,784
 $$
 
-$$
-3! = 6
-$$
-
-$$
-P(X = 3) = \frac{125 e^{-5}}{6}
-$$
-
-$$
-e^{-5} \approx 0.0067379
-$$
-
----
-
-### Final Result
-
-$$
-P(X = 3) = \frac{125 \cdot 0.0067379}{6}
-$$
-
-$$
-P(X = 3) \approx 0.1404
-$$
+- **Explanation:** Subtract the count of numbers with all unique digits from total numbers.
 
 ---
 
-## 4. Probability of At Least One Request
+## ✅ Quick Summary Table
 
-We use the complement rule:
-
-$$
-P(X \geq 1) = 1 - P(X = 0)
-$$
-
----
-
-### Step 1 — Compute \( P(X = 0) \)
-
-$$
-P(X = 0) = \frac{5^0 e^{-5}}{0!} = e^{-5}
-$$
-
-$$
-P(X = 0) \approx 0.0067379
-$$
-
----
-
-### Step 2 — Final Result
-
-$$
-P(X \geq 1) = 1 - 0.0067379
-$$
-
-$$
-P(X \geq 1) \approx 0.9933
-$$
-
----
-
-## 5. Final Answers
-
-$$
-P(X = 3) \approx 0.1404
-$$
-
-$$
-P(X \geq 1) \approx 0.9933
-$$
-
----
-
-## ✅ Key Insight
-
-- The Poisson model is used for **counting events over time**
-- The parameter:
-
-$$
-\lambda = 5
-$$
-
-represents the **average number of requests per hour**
-- The complement rule is very useful:
-
-$$
-P(X \geq 1) = 1 - P(X = 0)
-$$
+| Problem | Model | Formula | Result |
+|---------|-------|---------|--------|
+| Total 5-digit numbers | Sequence w/ restriction | $9 \cdot 10^4$ | 90,000 |
+| 5-digit even numbers | Sequence w/ restriction | $9 \cdot 10^3 \cdot 5$ | 45,000 |
+| No repeated digits | Sequence w/o repetition | $9 \cdot 9 \cdot 8 \cdot 7 \cdot 6$ | 27,216 |
+| At least one repeated digit | Complement | $90,000 - 27,216$ | 62,784 |

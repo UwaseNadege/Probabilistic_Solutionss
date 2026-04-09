@@ -1,151 +1,97 @@
-# Task 3 — Geometric Model (Waiting for the First Event)
-
-## Introduction
-We analyze a process using the **geometric distribution**, where we observe repeated independent trials until the **first success** occurs.
-
-We are given:
-
-- Each page may contain an error with probability **p**
-- Each page is independent
-- The probability of error is the same for every page
+# Task 3 — Permutations with Repeated Elements
 
 ---
 
-## 1. Random Experiment
+### **Problem 1: Distinct arrangements of the word MISSISSIPPI**
 
-We observe consecutive printed pages until the **first printing error appears**.
+- **Analysis:**  
+  - Total letters = 11  
+  - Letter counts: M=1, I=4, S=4, P=2  
+  - Some letters **repeat**, so we need **permutation with repeated elements**  
 
-Each page can be:
+- **Model:** Permutation with repeated elements  
 
-- Error (E)  
-- No error (N)
+- **Solution:**  
 
-We continue the process until the first occurrence of an error.
+$$
+\text{Number of arrangements} =
+\frac{11!}{1! \cdot 4! \cdot 4! \cdot 2!}
+$$
+
+$$
+= \frac{39,916,800}{24 \cdot 24 \cdot 2}
+$$
+
+$$
+= \frac{39,916,800}{1,152}
+$$
+
+$$
+= 34,650
+$$
+
+- **Explanation:** Divide the total factorial by the factorial of each repeated letter to avoid counting identical arrangements multiple times.
 
 ---
 
-## 2. Sample Space
+### **Problem 2: Distinct arrangements of STATISTICS**
 
-The sample space consists of all sequences where the **first error appears at some position**.
+- **Analysis:**  
+  - Total letters = 10  
+  - Letter counts: S=3, T=3, A=1, I=2, C=1  
+  - Letters repeat → permutation with repeated elements  
 
-Examples:
+- **Model:** Permutation with repeated elements  
 
-- E  
-- N E  
-- N N E  
-- N N N E  
-- and so on...
+- **Solution:**  
+
+$$
+\text{Number of arrangements} =
+\frac{10!}{3! \cdot 3! \cdot 1! \cdot 2! \cdot 1!}
+$$
+
+$$
+= \frac{3,628,800}{6 \cdot 6 \cdot 1 \cdot 2 \cdot 1}
+$$
+
+$$
+= \frac{3,628,800}{72}
+$$
+
+$$
+= 50,400
+$$
+
+- **Explanation:** Divide the total factorial by the factorial of each repeated letter to account for identical letters.
 
 ---
 
-### General Form of Sample Space
+### **Problem 3: Arrangements of STATISTICS starting with S**
+
+- **Analysis:**  
+  - First letter is fixed as S → remaining letters = 9 letters  
+  - Remaining counts: S=2, T=3, A=1, I=2, C=1  
+  - Use permutation with repeated elements for the remaining letters  
+
+- **Model:** Permutation with repeated elements  
+
+- **Solution:**  
 
 $$
-\Omega = \{ E,\ NE,\ NNE,\ NNNE,\ \dots \}
+\text{Number of arrangements} =
+\frac{9!}{2! \cdot 3! \cdot 1! \cdot 2! \cdot 1!}
 $$
 
----
-
-## 3. Random Variable
-
-Let:
-
-X = number of pages printed until the first error appears
-
----
-
-## 4. Probability Distribution
-
-The geometric distribution formula is:
-
 $$
-P(X = k) = (1 - p)^{k - 1} \cdot p
+= \frac{362,880}{2 \cdot 6 \cdot 1 \cdot 2 \cdot 1}
 $$
 
----
-
-### Explanation
-
-- The first \( k - 1 \) pages have no error → probability \( (1 - p)^{k-1} \)  
-- The \( k \)-th page contains the first error → probability \( p \)
-
----
-
-## 5. Probability of Specific Values
-
-### **P(X = 1)**
-
 $$
-P(X = 1) = p
+= \frac{362,880}{24}
 $$
 
----
-
-### **P(X = 2)**
-
 $$
-P(X = 2) = (1 - p)p
+= 15,120
 $$
 
----
-
-### **P(X = 3)**
-
-$$
-P(X = 3) = (1 - p)^2 p
-$$
-
----
-
-### **P(X = k)**
-
-$$
-P(X = k) = (1 - p)^{k-1} p
-$$
-
----
-
-## 6. Definition of Success
-
-In this model:
-
-**Success = occurrence of a printing error**
-
-Thus:
-
-- Probability of success:
-  
-$$
-P(\text{success}) = p
-$$
-
-- Probability of failure:
-  
-$$
-P(\text{failure}) = 1 - p
-$$
-
----
-
-## 7. Final Summary
-
-- Model: **Geometric distribution**  
-- Random variable:  
-
-$$
-X = \text{number of trials until first success}
-$$
-
-- Probability distribution:
-
-$$
-P(X = k) = (1 - p)^{k - 1} p
-$$
-
----
-
-## ✅ Key Insight
-
-- The process continues until the **first success occurs**
-- Each trial is **independent**
-- The probability of success remains **constant**
+- **Explanation:** Fixing the first letter reduces the total number of letters by 1, then we use the same formula for repeated letters.

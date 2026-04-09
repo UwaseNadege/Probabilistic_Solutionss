@@ -1,187 +1,115 @@
-# Task 5 — Multinomial Model (Categories of Outcomes)
-
-## Introduction
-We analyze a random experiment using the **multinomial distribution**, which generalizes the binomial model to more than two possible outcomes.
-
-We are given:
-
-- A die is rolled **5 times**
-- Outcomes are grouped into 3 categories:
-  - Small: (1–2)
-  - Medium: (3–4)
-  - Large: (5–6)
-
-Each category has probability:
-
-$$
-P(\text{small}) = P(\text{medium}) = P(\text{large}) = \frac{1}{3}
-$$
+# Task 5 — Combinations
 
 ---
 
-## 1. Random Experiment
+### **Problem 1: Choosing 4 people from 12 students**
 
-We roll a die **5 times** and record how many times each category appears:
+- **Analysis:**  
+  - Selecting **some objects** (4 out of 12)  
+  - Order does **not matter**  
+  - No repetition  
 
-- Small numbers (1–2)  
-- Medium numbers (3–4)  
-- Large numbers (5–6)
+- **Model:** Combination  
 
-Each roll is independent.
+- **Solution:**  
+
+$$
+C(12,4) =
+\frac{12!}{4! (12-4)!} \\
+= \frac{12!}{4! \cdot 8!} \\
+= \frac{479,001,600}{24 \cdot 40,320} \\
+= 495
+$$
+
+- **Explanation:** We divide by 4! to remove ordering within the chosen group, leaving only the combinations.
 
 ---
 
-## 2. Sample Space
+### **Problem 2: Committees containing a particular student**
 
-The sample space consists of all possible sequences of 5 outcomes, where each outcome belongs to one of the three categories.
+- **Analysis:**  
+  - Fix the **particular student** in the committee → 1 choice  
+  - Choose the remaining 3 members from the other 11 students → C(11,3)  
 
-Instead of listing all sequences, we describe outcomes by counts:
+- **Solution:**  
 
 $$
-\Omega = \{(x_1, x_2, x_3) \in \mathbb{N}_0^3 : x_1 + x_2 + x_3 = 5\}
+C(11,3) =
+\frac{11!}{3! (11-3)!} \\
+= \frac{11!}{3! \cdot 8!} \\
+= \frac{39,916,800}{6 \cdot 40,320} \\
+= 165
 $$
 
-Where:
-
-- \( x_1 \) = number of small outcomes  
-- \( x_2 \) = number of medium outcomes  
-- \( x_3 \) = number of large outcomes  
+- **Explanation:** By fixing the student, we reduce the problem to choosing 3 more from the remaining students.
 
 ---
 
-## 3. Multinomial Distribution
+### **Problem 3: Committees containing at least one of two particular students**
 
-Let:
+- **Analysis:**  
+  - Total combinations without restriction → C(12,4) = 495  
+  - Subtract committees with **neither student** → choose 4 from remaining 10 → C(10,4)  
 
-- \( X_1 \) = number of small outcomes  
-- \( X_2 \) = number of medium outcomes  
-- \( X_3 \) = number of large outcomes  
-
-Then:
+- **Solution:**  
 
 $$
-(X_1, X_2, X_3) \sim \text{Multinomial}(n = 5; p_1, p_2, p_3)
+C(10,4) =
+\frac{10!}{4! (10-4)!} \\
+= \frac{10!}{4! \cdot 6!} \\
+= 210
 $$
 
-where:
+$$
+\text{Committees with at least one of the two students} =
+C(12,4) - C(10,4) \\
+= 495 - 210 \\
+= 285
+$$
 
-$$
-p_1 = \frac{1}{3}, \quad p_2 = \frac{1}{3}, \quad p_3 = \frac{1}{3}
-$$
+- **Explanation:** Using **complement principle** makes it easier to count “at least one” cases.
 
 ---
 
-### Probability Formula
+### **Problem 4: Committees containing exactly two women (7 men, 5 women)**
+
+- **Analysis:**  
+  - Choose **2 women from 5** → C(5,2)  
+  - Choose **2 men from 7** → C(7,2)  
+  - Multiply the choices → combination of women × combination of men  
+
+- **Solution:**  
 
 $$
-P(X_1 = x_1, X_2 = x_2, X_3 = x_3)
-= \frac{5!}{x_1! \, x_2! \, x_3!}
-\left(\frac{1}{3}\right)^{x_1}
-\left(\frac{1}{3}\right)^{x_2}
-\left(\frac{1}{3}\right)^{x_3}
+C(5,2) =
+\frac{5!}{2! (5-2)!} \\
+= \frac{5!}{2! \cdot 3!} \\
+= 10
 $$
+
+$$
+C(7,2) =
+\frac{7!}{2! (7-2)!} \\
+= \frac{7!}{2! \cdot 5!} \\
+= 21
+$$
+
+$$
+\text{Total committees} =
+C(5,2) \cdot C(7,2) \\
+= 10 \cdot 21 \\
+= 210
+$$
+
+- **Explanation:** Choose the women and men independently, then multiply to get total combinations.
 
 ---
 
-### Simplified Form
+## ✅ Quick Summary Table
 
-Since all probabilities are equal:
-
-$$
-P(X_1, X_2, X_3)
-= \frac{5!}{x_1! \, x_2! \, x_3!}
-\left(\frac{1}{3}\right)^5
-$$
-
----
-
-## 4. Interpretation of Parameters
-
-### \( n = 5 \)
-
-- Number of trials (die rolls)
-
----
-
-### \( p_1, p_2, p_3 \)
-
-- Probabilities of each category:
-  
-$$
-Small: \( \frac{1}{3} \)
-Medium: \( \frac{1}{3} \)
-Large: \( \frac{1}{3} \)
-$$
-  
----
-
-### \( x_1, x_2, x_3 \)
-
-- Counts of how many times each category occurs in 5 rolls
-
----
-
-## 5. Example
-
-Example outcome:
-
-- 2 small numbers  
-- 2 medium numbers  
-- 1 large number  
-
-So:
-
-$$
-(x_1, x_2, x_3) = (2, 2, 1)
-$$
-
----
-
-### Probability of this outcome:
-
-$$
-P(2,2,1) = \frac{5!}{2! \, 2! \, 1!} \left(\frac{1}{3}\right)^5
-$$
-
-$$
-= \frac{120}{2 \cdot 2 \cdot 1} \cdot \frac{1}{243}
-$$
-
-$$
-= 30 \cdot \frac{1}{243}
-$$
-
-$$
-\approx 0.1235
-$$
-
----
-
-## 6. Final Summary
-
-- Model: **Multinomial distribution**  
-- Number of trials:
-
-$$
-n = 5
-$$
-
-- Categories:
-
-$$
-( \text{small}, \text{medium}, \text{large} )
-$$
-
-- Probabilities:
-
-$$
-\left(\frac{1}{3}, \frac{1}{3}, \frac{1}{3}\right)
-$$
-
----
-
-## ✅ Key Insight
-
-- The multinomial distribution is a **generalization of the binomial distribution**
-- It is used when each trial has **more than two possible outcomes**
-- It counts how many times each category occurs
+| Problem | Model | Formula | Result |
+|---------|-------|---------|--------|
+| 4 people from 12 | Combination | $C(12,4)$ | 495 |
+| Containing 1 particular student | Combination | $C(11,3)$ | 165 |
+| Containing at least one of 2 students | Combination (complement) | $C(12,4)-C(10,4)$ | 285 |
+| Exactly 2 women (7 men, 5 women) | Combination | $C(5,2) \cdot C(7,2)$ | 210 |

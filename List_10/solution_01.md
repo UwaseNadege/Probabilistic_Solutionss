@@ -1,3 +1,1 @@
-# Solution
-
-## Task 1
+# Your solution goes here

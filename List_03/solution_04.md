@@ -1,268 +1,131 @@
-# 📘 Problem 4 — Building Complex Statements from Simple Ones
+# Task 4 — Poisson Model (Arrival of Events)
+
+## Introduction
+We analyze a process using the **Poisson distribution**, which models the number of events occurring in a fixed interval of time or space.
+
+We are given:
+
+- Average number of error reports per hour: **3**
+- Events occur independently
+- The rate is constant over time
 
 ---
 
-## ❓ Question
+## 1. Random Experiment
 
-Consider an experiment consisting of two die rolls.
+We observe the number of error reports received by a web service during a **one-hour interval**.
 
-Each outcome is an ordered pair:
+Each outcome represents a count of how many error reports occur in that hour.
+
+---
+
+## 2. Sample Space
+
+The sample space consists of all possible non-negative integer values:
 
 $$
-(i, j)
+\Omega = \{0, 1, 2, 3, 4, 5, \dots\}
 $$
 
-where:
+---
 
-- \( i \) = result of the first die  
-- \( j \) = result of the second die  
+## 3. Probability Distribution
 
-Representation:
+The Poisson probability mass function is:
 
-```
-      1 2 3 4 5 6
-1     . . . . . .
-2     . . . . . .
-3     . . . . . .
-4     . . . . . .
-5     . . . . . .
-6     . . . . . .
-```
+$$
+P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
+$$
 
 ---
 
-## 🔹 Part A — Basic Statements
+### Parameter
 
-We define the following events:
+- \( \lambda \) = average number of events in the given interval
+  
+λ : (lambda)
+---
 
-- **A**: sum of the two results is 7  
-- **B**: first die is greater than the second  
-- **C**: at least one die shows 6  
+## 4. Interpretation of \( \lambda \)
+
+In this problem:
+
+$$
+\lambda = 3 
+$$
+
+This means:
+
+- On average, **3 error reports occur per hour**
+- \( \lambda \) represents the **expected number of events in one hour**
 
 ---
 
-### 🔸 Event A: \( i + j = 7 \)
+### Examples of Probabilities
 
-```
-      1 2 3 4 5 6
-1     . . . . . X
-2     . . . . X .
-3     . . . X . .
-4     . . X . . .
-5     . X . . . .
-6     X . . . . .
-```
+#### **P(X = 0)**
 
----
+$$
+P(X = 0) = \frac{3^0 e^{-3}}{0!} = e^{-3}
+$$
 
-### 🔸 Event B: \( i > j \)
-
-```
-      1 2 3 4 5 6
-1     . . . . . .
-2     X . . . . .
-3     X X . . . .
-4     X X X . . .
-5     X X X X . .
-6     X X X X X .
-```
+$$
+P(X = 0) \approx 0.0498
+$$
 
 ---
 
-### 🔸 Event C: At least one die is 6
+#### **P(X = 1)**
 
-```
-      1 2 3 4 5 6
-1     . . . . . X
-2     . . . . . X
-3     . . . . . X
-4     . . . . . X
-5     . . . . . X
-6     X X X X X X
-```
+$$
+P(X = 1) = \frac{3^1 e^{-3}}{1!} = 3e^{-3}
+$$
+
+$$
+P(X = 1) \approx 0.1494
+$$
 
 ---
 
-# 🔹 Part B — Compound Statements
+#### **P(X = 2)**
+
+$$
+P(X = 2) = \frac{3^2 e^{-3}}{2!} = \frac{9}{2} e^{-3}
+$$
+
+$$
+P(X = 2) \approx 0.2240
+$$
 
 ---
 
-## 1. \( A \cup C \)
+## 5. Final Summary
 
-### “The sum is 7 OR at least one die shows 6”
+- Model: **Poisson distribution**  
+- Random variable:
 
-```
-      1 2 3 4 5 6
-1     . . . . . X
-2     . . . . X X
-3     . . . X . X
-4     . . X . . X
-5     . X . . . X
-6     X . . . . X
-```
+$$
+X = \text{number of error reports in one hour}
+$$
 
----
+- Probability distribution:
 
-## 2. \( A \cap C \)
+$$
+P(X = k) = \frac{3^k e^{-3}}{k!}
+$$
 
-### “The sum is 7 AND at least one die shows 6”
+- Parameter:
 
-```
-      1 2 3 4 5 6
-1     . . . . . X
-2     . . . . . .
-3     . . . . . .
-4     . . . . . .
-5     . . . . . .
-6     X . . . . .
-```
+$$
+\lambda = 3
+$$
 
 ---
 
-## 3. \( B \cap C \)
+## ✅ Key Insight
 
-### “First die is greater AND at least one die shows 6”
-
-```
-      1 2 3 4 5 6
-1     . . . . . .
-2     . . . . . .
-3     . . . . . .
-4     . . . . . .
-5     . . . . . .
-6     X X X X X .
-```
-
----
-
-## 4. \( A \cap B^c \)
-
-### “Sum is 7 AND first die is NOT greater than second”
-
-```
-      1 2 3 4 5 6
-1     . . . . . X
-2     . . . . X .
-3     . . . . . .
-4     . . . . . .
-5     . . . . . .
-6     . . . . . .
-```
-
----
-
-## 5. \( A \cap C^c \)
-
-### “Sum is 7 AND no die shows 6”
-
-```
-      1 2 3 4 5 6
-1     . . . . . .
-2     . . . . X .
-3     . . . X . .
-4     . . X . . .
-5     . X . . . .
-6     . . . . . .
-```
-
----
-
-## 6. \( C \cap A^c \)
-
-### “At least one die shows 6 AND sum is NOT 7”
-
-```
-      1 2 3 4 5 6
-1     . . . . . X
-2     . . . . . X
-3     . . . . . X
-4     . . . . . X
-5     . . . . . X
-6     X X X X X .
-```
-
----
-
-## 7. \( A^c \cap B \)
-
-### “Sum is NOT 7 AND first die is greater”
-
-```
-      1 2 3 4 5 6
-1     X . . . . .
-2     X X . . . .
-3     X X X . . .
-4     X X . X . .
-5     X X X X X .
-6     X X X X X X
-```
-
----
-
-## 8. \( B^c \cap C \)
-
-### “First die is NOT greater AND at least one die shows 6”
-
-```
-      1 2 3 4 5 6
-1     . . . . . X
-2     . . . . . X
-3     . . . . . X
-4     . . . . . X
-5     . . . . . X
-6     . . . . . X
-```
-
----
-
-## 9. \( (A \cup C)^c \)
-
-### “NOT (sum is 7 OR at least one die shows 6)”
-
-```
-      1 2 3 4 5 6
-1     X X X X X .
-2     X X X X . .
-3     X X X . X .
-4     X X . X X .
-5     X . X X X .
-6     . X X X X .
-```
-
----
-
-## 10. \( (A \cap C)^c \)
-
-### “NOT (sum is 7 AND at least one die shows 6)”
-
-```
-      1 2 3 4 5 6
-1     X X X X X .
-2     X X X X X X
-3     X X X X X X
-4     X X X X X X
-5     X X X X X X
-6     . X X X X X
-```
-
----
-
-# 🔍 Final Conceptual Insight
-
-This problem shows the **core of formal probability reasoning**:
-
-- Each event = a **set**
-- Each statement = **set operation**
-
-### Logical ↔ Set Mapping
-
-| Logic | Set |
-|------|-----|
-| AND | \( \cap \) |
-| OR | \( \cup \) |
-| NOT | \( ^c \) |
-
----
-
-👉 Complex statements are just **combinations of simple events**  
-👉 Visualization helps reveal the **structure of these combinations**
+- The Poisson model is used for **counting events over time**
+- Events occur:
+  - independently  
+  - at a constant average rate  
+- The parameter \( \lambda \) is the **average rate of occurrence**

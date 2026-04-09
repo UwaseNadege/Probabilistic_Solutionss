@@ -1,227 +1,184 @@
-# Problem 2 — Die × Die (Complete Solution)
+# Task 2 — Hypergeometric Model (Sampling from a Batch)
+
+## Introduction
+We analyze a sampling process using the **hypergeometric distribution**, where elements are drawn **without replacement** from a finite population.
+
+We are given:
+
+- Total components: 20  
+- Defective components: 5  
+- Functional components: 15  
+- Sample size: 4  
 
 ---
 
-## Question
+## 1. Random Experiment
 
-Consider an experiment consisting of two dice rolls.
+We randomly select 4 components without replacement from a batch of 20.
 
-Representation:
+Each selected component can be:
 
-```
-      1 2 3 4 5 6
-1     . . . . . .
-2     . . . . . .
-3     . . . . . .
-4     . . . . . .
-5     . . . . . .
-6     . . . . . .
-```
+- Defective (D)  
+- Functional (F)  
 
 ---
 
-### Part A — Marking Events
+## 2. Random Variable
 
-Mark all outcomes satisfying the statement:
+Let:
 
-- the sum is equal to 8  
-- the first die is greater than the second  
-- both dice show even numbers  
-- at least one die shows 6  
-- exactly one die shows 1  
+X = number of defective components in the sample of 4  
 
 ---
 
-### Part B — Interpretation
+## 3. Possible Values of X
 
-Describe the event represented by each case below:
-
-**Case 1**
-
-```
-      1 2 3 4 5 6
-1     . . . . . .
-2     . . . . . .
-3     . . X X X X
-4     . . X X X X
-5     . . X X X X
-6     . . X X X X
-```
-
-**Case 2**
-
-```
-      1 2 3 4 5 6
-1     X . . . . .
-2     . X . . . .
-3     . . X . . .
-4     . . . X . .
-5     . . . . X .
-6     . . . . . X
-```
+X ∈ {0, 1, 2, 3, 4}
 
 ---
 
-# 📌 Solution
+## 4. Probability Distribution
 
----
-
-## 1. Sample Space
-
-For two dice, the sample space is:
+The hypergeometric probability formula is:
 
 $$
-\Omega = \{(i,j) \mid i,j \in \{1,2,3,4,5,6\}\}
-$$
-
-There are:
-
-$$
-|\Omega| = 6 \times 6 = 36
+P(X = k) = \frac{\binom{5}{k} \binom{15}{4-k}}{\binom{20}{4}}
 $$
 
 ---
 
-# 🔹 Part A — Marking Events
-
----
-
-## 1. The Sum Is Equal to 8
-
-We list all pairs where:
+### Step 1 — Total Number of Samples
 
 $$
-i + j = 8
-$$
-
-$$
-A = \{(2,6), (3,5), (4,4), (5,3), (6,2)\}
+\binom{20}{4} = 4845
 $$
 
 ---
 
-## 2. The First Die Is Greater Than the Second
+### Step 2 — Compute Each Probability
 
-This means:
-
-$$
-i > j
-$$
+#### **P(X = 0)**
 
 $$
-B = \{(2,1), (3,1), (3,2), (4,1), (4,2), (4,3), (5,1), (5,2), (5,3), (5,4), (6,1), (6,2), (6,3), (6,4), (6,5)\}
+P(X = 0) = \frac{\binom{5}{0} \binom{15}{4}}{\binom{20}{4}}
 $$
 
----
-
-## 3. Both Dice Show Even Numbers
-
-Even numbers: \( \{2,4,6\} \)
+$$
+= \frac{1 \cdot 1365}{4845}
+$$
 
 $$
-C = \{(2,2), (2,4), (2,6), (4,2), (4,4), (4,6), (6,2), (6,4), (6,6)\}
+= \frac{1365}{4845} \approx 0.2817
 $$
 
 ---
 
-## 4. At Least One Die Shows 6
-
-All outcomes where at least one coordinate is 6:
+#### **P(X = 1)**
 
 $$
-D = \{(6,1),(6,2),(6,3),(6,4),(6,5),(6,6),
-(1,6),(2,6),(3,6),(4,6),(5,6)\}
+P(X = 1) = \frac{\binom{5}{1} \binom{15}{3}}{\binom{20}{4}}
 $$
 
----
-
-## 5. Exactly One Die Shows 1
-
-This includes two cases:
-
-- first die is 1  
-- second die is 1  
+$$
+= \frac{5 \cdot 455}{4845}
+$$
 
 $$
-E = \{(1,2),(1,3),(1,4),(1,5),(1,6),
-(2,1),(3,1),(4,1),(5,1),(6,1)\}
+= \frac{2275}{4845} \approx 0.4696
 $$
 
 ---
 
-# 🔹 Part B — Interpretation
-
----
-
-## Case 1
-
-```
-      1 2 3 4 5 6
-1     . . . . . .
-2     . . . . . .
-3     . . X X X X
-4     . . X X X X
-5     . . X X X X
-6     . . X X X X
-```
-
-### Step 1 — Identify pattern
-
-- All X’s are in rows **3, 4, 5, 6**
-- Columns are **3, 4, 5, 6**
-
-### Step 2 — Interpretation
-
-This means:
-
-- both dice are **at least 3**
-
-### ✅ Event:
+#### **P(X = 2)**
 
 $$
-\text{“Both dice show values greater than or equal to 3”}
+P(X = 2) = \frac{\binom{5}{2} \binom{15}{2}}{\binom{20}{4}}
+$$
+
+$$
+= \frac{10 \cdot 105}{4845}
+$$
+
+$$
+= \frac{1050}{4845} \approx 0.2167
 $$
 
 ---
 
-## Case 2
-
-```
-      1 2 3 4 5 6
-1     X . . . . .
-2     . X . . . .
-3     . . X . . .
-4     . . . X . .
-5     . . . . X .
-6     . . . . . X
-```
-
-### Step 1 — Identify pattern
-
-- Only diagonal elements are marked
-
-### Step 2 — Interpretation
-
-This means:
-
-- the two dice show **the same number**
-
-### ✅ Event:
+#### **P(X = 3)**
 
 $$
-\text{“Both dice show the same number”}
+P(X = 3) = \frac{\binom{5}{3} \binom{15}{1}}{\binom{20}{4}}
+$$
+
+$$
+= \frac{10 \cdot 15}{4845}
+$$
+
+$$
+= \frac{150}{4845} \approx 0.0310
 $$
 
 ---
 
-# 🔍 Final Conceptual Understanding
+#### **P(X = 4)**
 
-- Outcomes → ordered pairs in \( \Omega \)  
-- Events → subsets of \( \Omega \)  
-- Geometry (table view) reveals structure:
+$$
+P(X = 4) = \frac{\binom{5}{4} \binom{15}{0}}{\binom{20}{4}}
+$$
 
-  - diagonal → equality  
-  - above diagonal → \( i < j \)  
-  - below diagonal → \( i > j \)  
+$$
+= \frac{5 \cdot 1}{4845}
+$$
 
-👉 Visualization helps understand relationships between outcomes, not just list them.
+$$
+= \frac{5}{4845} \approx 0.0010
+$$
+
+---
+
+## 5. Definition of Success
+
+Success = selecting a defective component
+
+---
+
+## 6. Final Summary
+
+- Model: Hypergeometric distribution  
+- Population size: 20  
+- Defective elements: 5  
+- Sample size: 4  
+
+---
+
+### Final Probability Distribution
+
+$$
+P(X = 0) \approx 0.2817
+$$
+
+$$
+P(X = 1) \approx 0.4696
+$$
+
+$$
+P(X = 2) \approx 0.2167
+$$
+
+$$
+P(X = 3) \approx 0.0310
+$$
+
+$$
+P(X = 4) \approx 0.0010
+$$
+
+---
+
+## ✅ Key Insight
+
+Unlike the binomial model:
+
+- The probability changes after each draw  
+- Because sampling is done **without replacement**

@@ -1,131 +1,96 @@
-# Task 4 — Poisson Model (Arrival of Events)
-
-## Introduction
-We analyze a process using the **Poisson distribution**, which models the number of events occurring in a fixed interval of time or space.
-
-We are given:
-
-- Average number of error reports per hour: **3**
-- Events occur independently
-- The rate is constant over time
+# Task 4 — Circular Permutations
 
 ---
 
-## 1. Random Experiment
+### **Problem 1: 7 people sitting around a round table**
 
-We observe the number of error reports received by a web service during a **one-hour interval**.
+- **Analysis:**  
+  - 7 people arranged in a **circle**  
+  - Rotations are considered the **same arrangement**, so we use **circular permutation**  
+  - Formula: $(n-1)!$  
 
-Each outcome represents a count of how many error reports occur in that hour.
+- **Model:** Circular Permutation  
+
+- **Solution:**  
+
+$$
+P_\text{circle} =
+(7-1)! \\
+= 6! \\
+= 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 \\
+= 720
+$$
+
+- **Explanation:** In a circle, fixing one position removes rotational duplicates, so we arrange the remaining 6 people normally.
 
 ---
 
-## 2. Sample Space
+### **Problem 2: 7 people sitting with 2 particular people next to each other**
 
-The sample space consists of all possible non-negative integer values:
+- **Analysis:**  
+  - Treat the 2 people who must sit together as **one block** → 6 objects (5 individuals + 1 block)  
+  - Order matters within the block → 2! ways  
+
+- **Model:** Circular permutation with a block  
+
+- **Solution:**  
 
 $$
-\Omega = \{0, 1, 2, 3, 4, 5, \dots\}
+\text{Ways to arrange 6 objects in a circle} =
+(6-1)! \\
+= 5! \\
+= 120
 $$
+
+$$
+\text{Ways to arrange 2 people inside the block} =
+2! \\
+= 2
+$$
+
+$$
+\text{Total arrangements} =
+5! \cdot 2! \\
+= 120 \cdot 2 \\
+= 240
+$$
+
+- **Explanation:** The block reduces the circle to 6 objects, then we multiply by the internal arrangements of the block.
 
 ---
 
-## 3. Probability Distribution
+### **Problem 3: 7 people sitting with 2 particular people opposite each other**
 
-The Poisson probability mass function is:
+- **Analysis:**  
+  - Fix one of the two particular people at any seat (rotation irrelevant)  
+  - The other person must sit directly opposite → 1 choice  
+  - Remaining 5 people can sit in the remaining 5 seats → $(5-1)! = 4!$ circular arrangements  
+
+- **Model:** Circular permutation with fixed positions  
+
+- **Solution:**  
 
 $$
-P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
+\text{Ways to arrange remaining 5 people in circle} =
+(5-1)! \\
+= 4! \\
+= 24
 $$
+
+$$
+\text{Total arrangements including 2 opposite people} =
+24 \cdot 1 \\
+= 24
+$$
+
+- **Explanation:** By fixing one person and placing the other opposite, the rest are arranged normally in the remaining seats.
 
 ---
 
-### Parameter
+## ✅ Quick Summary Table
 
-- \( \lambda \) = average number of events in the given interval
-  
-λ : (lambda)
----
-
-## 4. Interpretation of \( \lambda \)
-
-In this problem:
-
-$$
-\lambda = 3 
-$$
-
-This means:
-
-- On average, **3 error reports occur per hour**
-- \( \lambda \) represents the **expected number of events in one hour**
-
----
-
-### Examples of Probabilities
-
-#### **P(X = 0)**
-
-$$
-P(X = 0) = \frac{3^0 e^{-3}}{0!} = e^{-3}
-$$
-
-$$
-P(X = 0) \approx 0.0498
-$$
-
----
-
-#### **P(X = 1)**
-
-$$
-P(X = 1) = \frac{3^1 e^{-3}}{1!} = 3e^{-3}
-$$
-
-$$
-P(X = 1) \approx 0.1494
-$$
-
----
-
-#### **P(X = 2)**
-
-$$
-P(X = 2) = \frac{3^2 e^{-3}}{2!} = \frac{9}{2} e^{-3}
-$$
-
-$$
-P(X = 2) \approx 0.2240
-$$
-
----
-
-## 5. Final Summary
-
-- Model: **Poisson distribution**  
-- Random variable:
-
-$$
-X = \text{number of error reports in one hour}
-$$
-
-- Probability distribution:
-
-$$
-P(X = k) = \frac{3^k e^{-3}}{k!}
-$$
-
-- Parameter:
-
-$$
-\lambda = 3
-$$
-
----
-
-## ✅ Key Insight
-
-- The Poisson model is used for **counting events over time**
-- Events occur:
-  - independently  
-  - at a constant average rate  
-- The parameter \( \lambda \) is the **average rate of occurrence**
+| Problem | Model | Formula | Result |
+|---------|-------|---------|--------|
+| 7 people around a table | Circular Permutation | $(7-1)!$ | 720 |
+| 2 people must sit together | Circular Perm. with block | $(6-1)! \cdot 2!$ | 240 |
+| 2 people opposite each other | Circular Perm. with fixed positions | $4! \cdot 1$ | 24 |

@@ -1,184 +1,121 @@
-# Task 2 — Hypergeometric Model (Sampling from a Batch)
-
-## Introduction
-We analyze a sampling process using the **hypergeometric distribution**, where elements are drawn **without replacement** from a finite population.
-
-We are given:
-
-- Total components: 20  
-- Defective components: 5  
-- Functional components: 15  
-- Sample size: 4  
+# Task 2 — Permutations
 
 ---
 
-## 1. Random Experiment
+### **Problem 1: Arranging 8 different books on a shelf**
 
-We randomly select 4 components without replacement from a batch of 20.
+- **Analysis:**  
+  - Using **all objects** (8 books)  
+  - Order matters  
+  - No repetitions  
 
-Each selected component can be:
+- **Model:** Permutation  
 
-- Defective (D)  
-- Functional (F)  
+- **Solution:**  
+
+$$
+P_8 =
+8! \\
+= 8 \cdot 7 \cdot 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 \\
+= 40,320
+$$
+
+- **Explanation:** Each position on the shelf can be filled by any remaining book. Multiply the choices for each position to get the total number of arrangements.
 
 ---
 
-## 2. Random Variable
+### **Problem 2: 8 people in a row if two particular people must sit next to each other**
 
-Let:
+- **Analysis:**  
+  - Treat the two people who must sit together as **one block**  
+  - Now we have 7 objects (6 people + 1 block)  
+  - Order matters  
+  - Inside the block, the two people can switch positions  
 
-X = number of defective components in the sample of 4  
+- **Model:** Permutation with a block  
+
+- **Solution:**  
+
+$$
+\text{Ways to arrange 7 objects} =
+7! \\
+= 5040
+$$
+
+$$
+\text{Ways to arrange 2 people inside the block} =
+2! \\
+= 2
+$$
+
+$$
+\text{Total arrangements} =
+7! \cdot 2! \\
+= 5040 \cdot 2 \\
+= 10,080
+$$
+
+- **Explanation:** We treat the two people as one object first, then account for the two possible orders within that block.
 
 ---
 
-## 3. Possible Values of X
+### **Problem 3: 8 people in a row if the two particular people must NOT sit next to each other**
 
-X ∈ {0, 1, 2, 3, 4}
+- **Analysis:**  
+  - First, calculate **total arrangements without restriction** → 8!  
+  - Subtract arrangements where the two are together (from Problem 2 → 10,080)  
+
+- **Solution:**  
+
+$$
+\text{Total arrangements without restriction} =
+8! \\
+= 40,320
+$$
+
+$$
+\text{Arrangements where 2 people sit together} =
+10,080
+$$
+
+$$
+\text{Arrangements where 2 people do NOT sit together} =
+8! - (7! \cdot 2!) \\
+= 40,320 - 10,080 \\
+= 30,240
+$$
+
+- **Explanation:** Subtract the restricted cases from the total to find the allowed arrangements.
 
 ---
 
-## 4. Probability Distribution
+### **Problem 4: Ordering 10 questions in a test if the first question is fixed**
 
-The hypergeometric probability formula is:
+- **Analysis:**  
+  - First question is fixed → only 9 questions left  
+  - Order matters  
+  - No repetition  
+
+- **Model:** Permutation of remaining objects  
+
+- **Solution:**  
 
 $$
-P(X = k) = \frac{\binom{5}{k} \binom{15}{4-k}}{\binom{20}{4}}
+\text{Ways to order remaining 9 questions} =
+9! \\
+= 9 \cdot 8 \cdot 7 \cdot 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 \\
+= 362,880
 $$
+
+- **Explanation:** With the first question fixed, we only need to arrange the remaining 9 questions.
 
 ---
 
-### Step 1 — Total Number of Samples
+## ✅ Quick Summary Table
 
-$$
-\binom{20}{4} = 4845
-$$
-
----
-
-### Step 2 — Compute Each Probability
-
-#### **P(X = 0)**
-
-$$
-P(X = 0) = \frac{\binom{5}{0} \binom{15}{4}}{\binom{20}{4}}
-$$
-
-$$
-= \frac{1 \cdot 1365}{4845}
-$$
-
-$$
-= \frac{1365}{4845} \approx 0.2817
-$$
-
----
-
-#### **P(X = 1)**
-
-$$
-P(X = 1) = \frac{\binom{5}{1} \binom{15}{3}}{\binom{20}{4}}
-$$
-
-$$
-= \frac{5 \cdot 455}{4845}
-$$
-
-$$
-= \frac{2275}{4845} \approx 0.4696
-$$
-
----
-
-#### **P(X = 2)**
-
-$$
-P(X = 2) = \frac{\binom{5}{2} \binom{15}{2}}{\binom{20}{4}}
-$$
-
-$$
-= \frac{10 \cdot 105}{4845}
-$$
-
-$$
-= \frac{1050}{4845} \approx 0.2167
-$$
-
----
-
-#### **P(X = 3)**
-
-$$
-P(X = 3) = \frac{\binom{5}{3} \binom{15}{1}}{\binom{20}{4}}
-$$
-
-$$
-= \frac{10 \cdot 15}{4845}
-$$
-
-$$
-= \frac{150}{4845} \approx 0.0310
-$$
-
----
-
-#### **P(X = 4)**
-
-$$
-P(X = 4) = \frac{\binom{5}{4} \binom{15}{0}}{\binom{20}{4}}
-$$
-
-$$
-= \frac{5 \cdot 1}{4845}
-$$
-
-$$
-= \frac{5}{4845} \approx 0.0010
-$$
-
----
-
-## 5. Definition of Success
-
-Success = selecting a defective component
-
----
-
-## 6. Final Summary
-
-- Model: Hypergeometric distribution  
-- Population size: 20  
-- Defective elements: 5  
-- Sample size: 4  
-
----
-
-### Final Probability Distribution
-
-$$
-P(X = 0) \approx 0.2817
-$$
-
-$$
-P(X = 1) \approx 0.4696
-$$
-
-$$
-P(X = 2) \approx 0.2167
-$$
-
-$$
-P(X = 3) \approx 0.0310
-$$
-
-$$
-P(X = 4) \approx 0.0010
-$$
-
----
-
-## ✅ Key Insight
-
-Unlike the binomial model:
-
-- The probability changes after each draw  
-- Because sampling is done **without replacement**
+| Problem | Model | Formula | Result |
+|---------|-------|---------|--------|
+| 8 books on a shelf | Permutation | $P_8 = 8!$ | 40,320 |
+| 8 people together (2 must sit together) | Permutation with block | $7! \cdot 2!$ | 10,080 |
+| 8 people apart (2 must NOT sit together) | Subtraction | $8! - 7! \cdot 2!$ | 30,240 |
+| 10 questions, first fixed | Permutation of remaining | $9!$ | 362,880 |

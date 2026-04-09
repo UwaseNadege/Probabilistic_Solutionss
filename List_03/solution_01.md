@@ -1,180 +1,149 @@
-#  Problem 1 — Coin × Coin (Complete Solution)
+# Task 1 — Binomial Model (Quality Control)
+
+## Introduction
+We analyze a quality control process using the **binomial distribution**, where each trial has only two possible outcomes:
+
+- Good screw (G)
+- Defective screw (D)
+
+We assume:
+
+- Each inspection is **independent**
+- The probability of a defective screw is **p**
+- The probability of a good screw is **1 - p**
 
 ---
 
-##  Question
+## 1. Random Experiment
 
-Consider an experiment consisting of two coin tosses.
+We inspect **3 consecutive screws**.
 
-Representation:
+Each screw can be:
 
-```
-      H   T
-H     .   .
-T     .   .
-```
+- Defective (D)
+- Good (G)
 
-Each cell corresponds to one possible outcome.
+Thus, the experiment consists of observing the sequence of outcomes for 3 screws.
 
 ---
 
-### Part A — Marking Events
+## 2. Sample Space
 
-For each statement, mark all outcomes for which the statement is true:
+For one screw:
 
-- exactly one head  
-- both tosses are the same  
-- at least one head  
-- the first toss is tails  
-- the second toss is heads  
+Ω₁ = {D, G}
 
----
+For three screws:
 
-### Part B — Interpretation
-
-Describe the event represented by each case below:
-
-**Case 1**
-
-```
-      H   T
-H     X   X
-T     .   .
-```
-
-**Case 2**
-
-```
-      H   T
-H     .   X
-T     X   .
-```
+Ω₃ = { (x₁, x₂, x₃) : xᵢ ∈ {D, G} }
 
 ---
 
-# 📌 Solution
+### All Possible Outcomes
+
+Ω₃ = {  
+DDD, DDG, DGD, DGG,  
+GDD, GDG, GGD, GGG  
+}
 
 ---
 
-## 1. Sample Space
+### Number of Elementary Outcomes
 
-For two coin tosses:
-
-$$
-\Omega = \{(H,H), (H,T), (T,H), (T,T)\}
-$$
+|Ω₃| = 2³ = 8
 
 ---
 
-# 🔹 Part A — Marking Events
+## 3. Probabilities of Elementary Outcomes
+
+Each sequence probability depends on:
+
+- Number of defective screws → probability p  
+- Number of good screws → probability (1 - p)
 
 ---
 
-## 1. Exactly One Head
+### General Formula
 
-$$
-A = \{(H,T), (T,H)\}
-$$
+For a sequence with:
 
----
+- k defective screws  
+- (3 - k) good screws  
 
-## 2. Both Tosses Are the Same
-
-$$
-B = \{(H,H), (T,T)\}
-$$
+P(ω) = pᵏ (1 - p)^(3 - k)
 
 ---
 
-## 3. At Least One Head
+### Explicit Probabilities
 
-$$
-C = \{(H,H), (H,T), (T,H)\}
-$$
+- **DDD**  
+P(DDD) = p³  
 
----
+- **DDG, DGD, GDD** (2 defective, 1 good)  
+P = p² (1 - p)  
 
-## 4. The First Toss Is Tails
+- **DGG, GDG, GGD** (1 defective, 2 good)  
+P = p (1 - p)²  
 
-$$
-D = \{(T,H), (T,T)\}
-$$
-
----
-
-## 5. The Second Toss Is Heads
-
-$$
-E = \{(H,H), (T,H)\}
-$$
+- **GGG**  
+P(GGG) = (1 - p)³  
 
 ---
 
-# 🔹 Part B — Interpretation
+## 4. Definition of Success
+
+In this model:
+
+**Success = selecting a defective screw**
+
+Thus:
+
+- P(success) = p  
+- P(failure) = 1 - p  
 
 ---
 
-## Case 1
+## 5. Random Variable (Binomial Model)
 
-```
-      H   T
-H     X   X
-T     .   .
-```
+Let:
 
-### Marked outcomes:
+X = number of defective screws in 3 trials  
 
-$$
-\{(H,H), (H,T)\}
-$$
+Then:
 
-### Interpretation:
-
-- The **first toss is heads**
-
-### ✅ Event:
-
-$$
-\text{“The first toss is heads”}
-$$
+X ~ Binomial(n = 3, p)
 
 ---
 
-## Case 2
+## 6. Probability Distribution (Final Answers)
 
-```
-      H   T
-H     .   X
-T     X   .
-```
+The probability of exactly k defective screws:
 
-### Marked outcomes:
-
-$$
-\{(H,T), (T,H)\}
-$$
-
-### Interpretation:
-
-- The two tosses are **different**
-
-### Event:
-
-$$
-\text{“Exactly one head”}
-$$
+P(X = k) = (3 choose k) pᵏ (1 - p)^(3 - k)
 
 ---
 
-#  Final Conceptual Understanding
+### Final Calculated Values
 
-- Outcomes → elements of \( \Omega \)  
-- Events → subsets of \( \Omega \)  
+- **P(X = 0)**  
+P(X = 0) = (1 - p)³  
 
-Logical translation:
+- **P(X = 1)**  
+P(X = 1) = 3p(1 - p)²  
 
-- AND → intersection  
-- OR → union  
-- NOT → complement  
+- **P(X = 2)**  
+P(X = 2) = 3p²(1 - p)  
 
-👉 This problem shows how to translate **real situations into mathematical formalism**
+- **P(X = 3)**  
+P(X = 3) = p³  
+
+---
+
+## ✅ Summary
+
+- Total outcomes: **8**  
+- Model: **Binomial distribution**  
+- Success: **defective screw**  
+- Random variable:  
+
+X ~ Binomial(3, p)

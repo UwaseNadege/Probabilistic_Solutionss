@@ -1,148 +1,102 @@
-# Task 6 — Binomial Model
-
-## Introduction
-We analyze a process using the **binomial distribution**, where:
-
-- Each part is either defective or not defective  
-- The probability of a defective part is constant  
-- Each inspection is independent  
-
-We are given:
-
-- Probability of defect:
-
-$$
-p = 0.04
-$$
-
-- Number of inspections:
-
-$$
-n = 10
-$$
+# Task 6 — Combinations in Card Problems
 
 ---
 
-## 1. Random Variable
+### **Problem 1: 5 cards with exactly 2 hearts**
 
-Let:
+- **Analysis:**  
+  - Standard deck: 52 cards → 13 hearts, 39 non-hearts  
+  - Choose **2 hearts from 13** → C(13,2)  
+  - Choose **3 non-hearts from 39** → C(39,3)  
+  - Multiply the two numbers → independent selections  
 
-X = number of defective parts among 10 inspected parts  
+- **Model:** Combination  
 
-Then:
+- **Solution:**  
 
 $$
-X \sim \text{Binomial}(n = 10,\ p = 0.04) \text{ basically X follows a binomial distribution with}
+C(13,2) =
+\frac{13!}{2! (13-2)!} \\
+= \frac{13!}{2! \cdot 11!} \\
+= 78
 $$
 
+$$
+C(39,3) =
+\frac{39!}{3! (39-3)!} \\
+= \frac{39!}{3! \cdot 36!} \\
+= 9,139
+$$
 
+$$
+\text{Total hands} =
+C(13,2) \cdot C(39,3) \\
+= 78 \cdot 9,139 \\
+= 713,982
+$$
+
+- **Explanation:** Select hearts and non-hearts independently, then multiply to get total hands.
 
 ---
 
-## 2. Probability Formula
+### **Problem 2: 5 cards with at least one heart**
 
-p= 0.04 and 
-1-p= 0.96
+- **Analysis:**  
+  - Easier to use **complement principle**  
+  - Total 5-card hands: C(52,5)  
+  - Hands with **no hearts** → choose 5 from 39 non-hearts → C(39,5)  
+  - Subtract to get hands with at least one heart  
+
+- **Solution:**  
 
 $$
-P(X = k) = \binom{10}{k} (0.04)^k (0.96)^{10-k}
+C(52,5) =
+\frac{52!}{5! (52-5)!} \\
+= 2,598,960
 $$
+
+$$
+C(39,5) =
+\frac{39!}{5! (39-5)!} \\
+= 575,757
+$$
+
+$$
+\text{Hands with at least 1 heart} =
+C(52,5) - C(39,5) \\
+= 2,598,960 - 575,757 \\
+= 2,023,203
+$$
+
+- **Explanation:** Subtract the “no hearts” cases from the total to get “at least one heart.”
 
 ---
 
-## 3. Probability That Exactly 2 Parts Are Defective
+### **Problem 3: 5 cards with no face cards (J, Q, K)**
 
-We compute:
+- **Analysis:**  
+  - There are **12 face cards** in the deck → 52-12=40 non-face cards  
+  - Choose 5 cards from these 40  
+
+- **Model:** Combination  
+
+- **Solution:**  
 
 $$
-P(X = 2) = \binom{10}{2} (0.04)^2 (0.96)^8
+C(40,5) =
+\frac{40!}{5! (40-5)!} \\
+= \frac{40!}{5! \cdot 35!} \\
+= 658,008
 $$
+
+- **Explanation:** Only choose from non-face cards; order does not matter.
 
 ---
 
-### Step-by-Step Calculation
+## ✅ Quick Summary Table
 
-$$
-\binom{10}{2} = 45
-$$
-
-$$
-(0.04)^2 = 0.0016
-$$
-
-$$
-(0.96)^8 \approx 0.7208
-$$
-
----
-
-### Final Result
-
-$$
-P(X = 2) = 45 \cdot 0.0016 \cdot 0.7208
-$$
-
-$$
-P(X = 2) \approx 0.0519
-$$
-
----
-
-## 4. Probability That At Least One Part Is Defective
-
-We use the complement rule:
-
-$$
-P(X \geq 1) = 1 - P(X = 0)
-$$
-
----
-
-### Step 1 — Compute \( P(X = 0) \)
-
-$$
-P(X = 0) = \binom{10}{0} (0.04)^0 (0.96)^{10}
-$$
-
-$$
-P(X = 0) = (0.96)^{10}
-$$
-
-$$
-P(X = 0) \approx 0.6650
-$$
-
----
-
-### Step 2 — Final Result
-
-$$
-P(X \geq 1) = 1 - 0.6650
-$$
-
-$$
-P(X \geq 1) \approx 0.3350
-$$
-
----
-
-## 5. Final Answers
-
-$$
-P(X = 2) \approx 0.0519
-$$
-
-$$
-P(X \geq 1) \approx 0.3350
-$$
-
----
-
-## ✅ Key Insight
-
-- The binomial model is used for **fixed number of independent trials**
-- The complement rule simplifies calculations:
-
-$$
-P(\text{at least one}) = 1 - P(0)
-$$
+| Problem | Model | Formula | Result |
+|---------|-------|---------|--------|
+| Exactly 2 hearts | Combination | $C(13,2) \cdot C(39,3)$ | 713,982 |
+| At least 1 heart | Combination (complement) | $C(52,5) - C(39,5)$ | 2,023,203 |
+| No face cards | Combination | $C(40,5)$ | 658,008 |

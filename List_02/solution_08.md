@@ -1,136 +1,84 @@
-# Task 8 — Geometric Model
-
-## Introduction
-We analyze a process using the **geometric distribution**, where we repeat independent trials until the **first success** occurs.
-
-We are given:
-
-- Probability of error:
-
-$$
-p = 0.1
-$$
-
-- Probability of no error:
-
-$$
-1 - p = 0.9
-$$
-
-- Each compilation is independent
+# Task 8 — Sequences with Repetition
 
 ---
 
-## 1. Random Variable
+### **Problem 1: 5-digit PIN codes with digits that may repeat**
 
-Let:
+- **Analysis:**  
+  - Digits available: 0–9 → 10 digits  
+  - Length of sequence = 5  
+  - Repetition allowed → each position can independently take any digit  
 
-X = number of compilations until the first error occurs  
+- **Model:** Sequence with Repetition  
 
-Then:
+- **Solution:**  
 
 $$
-X \sim \text{Geometric}(p = 0.1)
+\text{Total PIN codes} =
+10^5 \\
+= 10 \cdot 10 \cdot 10 \cdot 10 \cdot 10 \\
+= 100,000
 $$
+
+- **Explanation:** Each of the 5 positions has 10 choices; multiply them together.
 
 ---
 
-## 2. Probability Formula
+### **Problem 2: PIN codes containing at least one repeated digit**
+
+- **Analysis:**  
+  - Easier to use **complement principle**  
+  - Total PIN codes without restriction → 10^5 = 100,000  
+  - PIN codes with **all digits different** → 10P5  
+
+- **Model:** Sequence with Repetition (complement principle)  
+
+- **Solution:**  
 
 $$
-P(X = k) = (1 - p)^{k - 1} p
+10P5 =
+\frac{10!}{(10-5)!} \\
+= \frac{10!}{5!} \\
+= 10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \\
+= 30,240
 $$
+
+$$
+\text{PIN codes with at least one repeated digit} =
+10^5 - 10P5 \\
+= 100,000 - 30,240 \\
+= 69,760
+$$
+
+- **Explanation:** Subtract the sequences with all unique digits from total sequences to find those with repeats.
 
 ---
 
-## 3. First Error Appears on the 4th Compilation
+### **Problem 3: PIN codes with all digits different**
 
-We compute:
+- **Analysis:**  
+  - Digits 0–9 → choose 5 distinct digits  
+  - Order matters → 5-permutation of 10 digits  
+
+- **Model:** k-Permutation  
+
+- **Solution:**  
 
 $$
-P(X = 4) = (0.9)^3 \cdot 0.1
+10P5 =
+\frac{10!}{(10-5)!} \\
+= \frac{10!}{5!} \\
+= 30,240
 $$
+
+- **Explanation:** Each position gets a unique digit; multiply the number of choices sequentially.
 
 ---
 
-### Step-by-Step Calculation
+## ✅ Quick Summary Table
 
-$$
-(0.9)^3 = 0.729
-$$
-
-$$
-P(X = 4) = 0.729 \cdot 0.1
-$$
-
-$$
-P(X = 4) = 0.0729
-$$
-
----
-
-## 4. First Error Appears No Later Than the 3rd Compilation
-
-We compute:
-
-$$
-P(X \leq 3) = P(X = 1) + P(X = 2) + P(X = 3)
-$$
-
----
-
-### Step 1 — Compute Each Term
-
-#### **P(X = 1)**
-
-$$
-P(X = 1) = 0.1
-$$
-
----
-
-#### **P(X = 2)**
-
-$$
-P(X = 2) = (0.9)(0.1) = 0.09
-$$
-
----
-
-#### **P(X = 3)**
-
-$$
-P(X = 3) = (0.9)^2 (0.1) = 0.081
-$$
-
----
-
-### Step 2 — Add Probabilities
-
-$$
-P(X \leq 3) = 0.1 + 0.09 + 0.081
-$$
-
-$$
-P(X \leq 3) = 0.271
-$$
-
----
-
-## 5. Final Answers
-
-$$
-P(X = 4) = 0.0729
-$$
-
-$$
-P(X \leq 3) = 0.271
-$$
-
----
-
-## ✅ Key Insight
-
-- The geometric distribution models **waiting time until the first success**
-- The probability decreases exponentially as the number of trials increases
-- The complement can also be used for efficiency in calculations
+| Problem | Model | Formula | Result |
+|---------|-------|---------|--------|
+| 5-digit PIN codes, repetition allowed | Sequence with Repetition | $10^5$ | 100,000 |
+| At least one repeated digit | Sequence w/ repetition (complement) | $10^5 - 10P5$ | 69,760 |
+| All digits different | k-Permutation | $10P5$ | 30,240 |

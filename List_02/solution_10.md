@@ -1,155 +1,113 @@
-# Task 10 — Multinomial Model
-
-## Introduction
-We analyze a process using the **multinomial distribution**, which generalizes the binomial model to more than two possible outcomes.
-
-We are given:
-
-- Strawberry probability:
-
-$$
-p_1 = 0.4
-$$
-
-- Lemon probability:
-
-$$
-p_2 = 0.35
-$$
-
-- Mint probability:
-
-$$
-p_3 = 0.25
-$$
-
-- Number of selections:
-
-$$
-n = 6
-$$
+# Task 10 — Urn Models
 
 ---
 
-## 1. Random Experiment
+### **Problem 1: Three balls drawn without replacement, order ignored**
 
-We perform **6 independent selections with replacement**, where each selection results in one of three outcomes:
+- **Analysis:**  
+  - Total balls = 5 red + 4 blue + 3 green = 12  
+  - Draw 3 balls **without replacement**  
+  - Order **does not matter** → combination  
 
-- Strawberry  
-- Lemon  
-- Mint  
+- **Model:** Combination  
+
+- **Solution:**  
+
+$$
+C(12,3) =
+\frac{12!}{3! (12-3)!} \\
+= \frac{12!}{3! \cdot 9!} \\
+= 220
+$$
+
+- **Explanation:** Choose any 3 balls from 12 regardless of order.
 
 ---
 
-## 2. Random Variable
+### **Problem 2: Samples containing exactly two red balls**
 
-Let:
+- **Analysis:**  
+  - Choose 2 red balls from 5 → C(5,2)  
+  - Choose 1 ball from remaining non-red balls (4 blue + 3 green = 7) → C(7,1)  
+  - Multiply → independent choices  
 
-- \( X_1 \) = number of strawberry candies  
-- \( X_2 \) = number of lemon candies  
-- \( X_3 \) = number of mint candies  
-
-with the constraint:
+- **Solution:**  
 
 $$
-X_1 + X_2 + X_3 = 6
+C(5,2) =
+\frac{5!}{2! (5-2)!} = 10
 $$
+
+$$
+C(7,1) =
+\frac{7!}{1! (7-1)!} = 7
+$$
+
+$$
+\text{Total samples} = C(5,2) \cdot C(7,1) = 10 \cdot 7 = 70
+$$
+
+- **Explanation:** Pick red balls first, then choose one non-red ball; multiply to get total combinations.
 
 ---
 
-## 3. Multinomial Probability Formula
+### **Problem 3: Three balls drawn, order recorded**
+
+- **Analysis:**  
+  - Order **matters** → sequence  
+  - Total balls = 12 → 3 positions  
+  - No replacement → 12 choices for first, 11 for second, 10 for third  
+
+- **Model:** k-Permutation  
+
+- **Solution:**  
 
 $$
-P(X_1 = x_1,\ X_2 = x_2,\ X_3 = x_3)
-= \frac{6!}{x_1! \, x_2! \, x_3!}
-\cdot (0.4)^{x_1}
-\cdot (0.35)^{x_2}
-\cdot (0.25)^{x_3}
+P(12,3) =
+\frac{12!}{(12-3)!} \\
+= \frac{12!}{9!} \\
+= 12 \cdot 11 \cdot 10 \\
+= 1,320
 $$
+
+- **Explanation:** Each draw has fewer options as balls are removed; multiply sequentially.
 
 ---
 
-## 4. Required Probability
+### **Problem 4: Outcomes with exactly two red balls, order recorded**
 
-We are asked to compute:
+- **Analysis:**  
+  - First, choose **2 red balls** from 5 → C(5,2)  
+  - Choose **1 non-red ball** from 7 → C(7,1)  
+  - Then **arrange the 3 balls in order** → 3! permutations  
 
-- 3 strawberry  
-- 2 lemon  
-- 1 mint  
-
-So:
+- **Solution:**  
 
 $$
-x_1 = 3,\quad x_2 = 2,\quad x_3 = 1
+C(5,2) = 10
 $$
+
+$$
+C(7,1) = 7
+$$
+
+$$
+\text{Arrange 3 balls} = 3! = 6
+$$
+
+$$
+\text{Total outcomes} = 10 \cdot 7 \cdot 6 = 420
+$$
+
+- **Explanation:** Count all ways to select balls, then account for order of selection.
 
 ---
 
-## 5. Step-by-Step Calculation
+## ✅ Quick Summary Table
 
-### Step 1 — Multinomial Coefficient
-
-$$
-\frac{6!}{3! \, 2! \, 1!}
-$$
-
-$$
-6! = 720,\quad 3! = 6,\quad 2! = 2,\quad 1! = 1
-$$
-
-$$
-\frac{720}{6 \cdot 2 \cdot 1} = \frac{720}{12} = 60
-$$
-
----
-
-### Step 2 — Probability Terms
-
-$$
-(0.4)^3 = 0.064
-$$
-
-$$
-(0.35)^2 = 0.1225
-$$
-
-$$
-(0.25)^1 = 0.25
-$$
-
----
-
-### Step 3 — Multiply All Terms
-
-$$
-P = 60 \cdot 0.064 \cdot 0.1225 \cdot 0.25
-$$
-
-$$
-P = 60 \cdot 0.00196
-$$
-
-$$
-P \approx 0.1176
-$$
-
----
-
-## 6. Final Answer
-
-$$
-P(3\ \text{strawberry},\ 2\ \text{lemon},\ 1\ \text{mint}) \approx 0.1176
-$$
-
----
-
-## ✅ Key Insight
-
-- The multinomial model extends the binomial model to **multiple categories**
-- The sum of probabilities must always equal 1:
-
-$$
-0.4 + 0.35 + 0.25 = 1
-$$
-
-- The multinomial coefficient counts how many ways the arrangement can occur
+| Problem | Model | Formula | Result |
+|---------|-------|---------|--------|
+| 3 balls, order ignored | Combination | $C(12,3)$ | 220 |
+| Exactly 2 red balls | Combination | $C(5,2) \cdot C(7,1)$ | 70 |
+| 3 balls, order recorded | k-Permutation | $P(12,3)$ | 1,320 |
+| Exactly 2 red balls, order recorded | k-Permutation w/ selection | $C(5,2) \cdot C(7,1) \cdot 3!$ | 420 |
