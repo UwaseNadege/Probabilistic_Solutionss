@@ -5,7 +5,9 @@
 ### **Problem 1: 5 cards with exactly 2 hearts**
 
 - **Analysis:**  
-  - Standard deck: 52 cards → 13 hearts, 39 non-hearts  
+  - Standard deck: 52 cards → 13 hearts, 39 non-hearts
+  - A 5-card hand with exactly 2 hearts must have: 2 hearts
+the remaining 3 cards must NOT be hearts
   - Choose **2 hearts from 13** → C(13,2)  
   - Choose **3 non-hearts from 39** → C(39,3)  
   - Multiply the two numbers → independent selections  
@@ -42,9 +44,15 @@ $$
 ### **Problem 2: 5 cards with at least one heart**
 
 - **Analysis:**  
-  - Easier to use **complement principle**  
-  - Total 5-card hands: C(52,5)  
-  - Hands with **no hearts** → choose 5 from 39 non-hearts → C(39,5)  
+  - Easier to use **complement principle**
+  - We want the number of 5-card hands that contain **at least one heart**.
+
+Instead of counting all possible cases (1 heart, 2 hearts, 3 hearts, etc.), it is much easier to use the **complement principle**.
+First, count all possible 5-card hands from a standard 52-card deck:
+  - Total 5-card hands: C(52,5)
+  - Next, count the number of hands that contain **no hearts**.  
+This means all 5 cards are chosen from the 39 non-heart cards:
+  - Hands with **no hearts** → choose 5 from 39 non-hearts → C(39,5)
   - Subtract to get hands with at least one heart  
 
 - **Solution:**  
