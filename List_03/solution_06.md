@@ -41,11 +41,50 @@ $$
 
 ## 2. Probability Formula
 
-p= 0.04 and 
-1-p= 0.96
+## 2. Probability Formula
+
+We model this using a **binomial distribution** with:
+
+- $n = 10$
+- $p = 0.04$
+- $1 - p = 0.96$
+
+The general formula is:
 
 $$
 P(X = k) = \binom{10}{k} (0.04)^k (0.96)^{10-k}
+$$
+
+### Example Calculation: $P(X = 1)$
+
+$$
+P(X = 1) = \binom{10}{1} (0.04)^1 (0.96)^9
+$$
+
+$$
+= 10 \cdot 0.04 \cdot (0.96)^9
+$$
+
+$$
+\approx 10 \cdot 0.04 \cdot 0.6925
+$$
+
+$$
+\approx 0.277
+$$
+
+### Example Calculation: $P(X = 0)$
+
+$$
+P(X = 0) = \binom{10}{0} (0.04)^0 (0.96)^{10}
+$$
+
+$$
+= 1 \cdot 1 \cdot (0.96)^{10}
+$$
+
+$$
+\approx 0.665
 $$
 
 ---
