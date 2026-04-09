@@ -32,7 +32,7 @@ X = number of defective parts among 10 inspected parts
 Then:
 
 $$
-X \sim \text{Binomial}(n = 10,\ p = 0.04)  basically  (X follows a binomial distribution with)
+X \sim \text{Binomial}(n = 10,\ p = 0.04) \text{ basically X follows a binomial distribution with}
 $$
 
 
