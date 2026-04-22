@@ -1,180 +1,261 @@
-#  Problem 1 — Coin × Coin (Complete Solution)
+# Problem 1 — Coin × Coin
 
----
+## Short description
 
-##  Question
+We perform **two coin tosses**.
 
-Consider an experiment consisting of two coin tosses.
-
-Representation:
-
-```
-      H   T
-H     .   .
-T     .   .
-```
-
-Each cell corresponds to one possible outcome.
-
----
-
-### Part A — Marking Events
-
-For each statement, mark all outcomes for which the statement is true:
-
-- exactly one head  
-- both tosses are the same  
-- at least one head  
-- the first toss is tails  
-- the second toss is heads  
-
----
-
-### Part B — Interpretation
-
-Describe the event represented by each case below:
-
-**Case 1**
-
-```
-      H   T
-H     X   X
-T     .   .
-```
-
-**Case 2**
-
-```
-      H   T
-H     .   X
-T     X   .
-```
-
----
-
-# 📌 Solution
-
----
-
-## 1. Sample Space
-
-For two coin tosses:
+Each outcome is an ordered pair:
 
 $$
-\Omega = \{(H,H), (H,T), (T,H), (T,T)\}
+(i, j)
+$$
+
+where:
+- i = first toss (row)
+- j = second toss (column)
+
+Each cell represents one outcome:
+- X = included in event  
+- . = not included  
+
+So the sample space is:
+
+$$
+\{(H,H), (H,T), (T,H), (T,T)\}
 $$
 
 ---
 
-# 🔹 Part A — Marking Events
-
----
-
-## 1. Exactly One Head
+# General representation
 
 $$
-A = \{(H,T), (T,H)\}
-$$
-
----
-
-## 2. Both Tosses Are the Same
-
-$$
-B = \{(H,H), (T,T)\}
+\begin{array}{c|cc}
+ & H & T \\
+\hline
+H & . & . \\
+T & . & . \\
+\end{array}
 $$
 
 ---
 
-## 3. At Least One Head
-
-$$
-C = \{(H,H), (H,T), (T,H)\}
-$$
+# Part A — Marking events
 
 ---
 
-## 4. The First Toss Is Tails
+## 1. Exactly one head
+
+### Analysis
+
+We want outcomes where exactly one toss is H:
 
 $$
-D = \{(T,H), (T,T)\}
+(H,T), (T,H)
 $$
+
+### Graph
+
+$$
+\begin{array}{c|cc}
+ & H & T \\
+\hline
+H & . & X \\
+T & X & . \\
+\end{array}
+$$
+
+### Explanation
+
+I check each ordered pair:
+- (H,H) → 2 heads → reject
+- (H,T) → 1 head → accept
+- (T,H) → 1 head → accept
+- (T,T) → 0 heads → reject
+
+So I mark only cases with exactly one head.
 
 ---
 
-## 5. The Second Toss Is Heads
+## 2. Both tosses are the same
+
+### Analysis
+
+We want:
 
 $$
-E = \{(H,H), (T,H)\}
+(H,H), (T,T)
 $$
+
+### Graph
+
+$$
+\begin{array}{c|cc}
+ & H & T \\
+\hline
+H & X & . \\
+T & . & X \\
+\end{array}
+$$
+
+### Explanation
+
+I check equality of results:
+- same outcome → X
+- different outcome → .
+
+So I select diagonal entries only.
 
 ---
 
-# 🔹 Part B — Interpretation
+## 3. At least one head
+
+### Analysis
+
+All outcomes except (T,T)
+
+### Graph
+
+$$
+\begin{array}{c|cc}
+ & H & T \\
+\hline
+H & X & X \\
+T & X & . \\
+\end{array}
+$$
+
+### Explanation
+
+I mark all outcomes where:
+- first is H OR second is H
+
+Only (T,T) is excluded.
+
+---
+
+## 4. First toss is tails
+
+### Analysis
+
+All outcomes where first result = T:
+
+$$
+(T,H), (T,T)
+$$
+
+### Graph
+
+$$
+\begin{array}{c|cc}
+ & H & T \\
+\hline
+H & . & . \\
+T & X & X \\
+\end{array}
+$$
+
+### Explanation
+
+I fix row = T and include all columns.
+
+---
+
+## 5. Second toss is heads
+
+### Analysis
+
+All outcomes where second result = H:
+
+$$
+(H,H), (T,H)
+$$
+
+### Graph
+
+$$
+\begin{array}{c|cc}
+ & H & T \\
+\hline
+H & X & . \\
+T & X & . \\
+\end{array}
+$$
+
+### Explanation
+
+I fix column = H and include both rows.
+
+---
+
+# Part B — Interpretation
 
 ---
 
 ## Case 1
 
-```
-      H   T
-H     X   X
-T     .   .
-```
-
-### Marked outcomes:
+### Graph
 
 $$
-\{(H,H), (H,T)\}
+\begin{array}{c|cc}
+ & H & T \\
+\hline
+H & X & X \\
+T & . & . \\
+\end{array}
 $$
 
-### Interpretation:
+### Step-by-step interpretation
 
-- The **first toss is heads**
+This means:
+- first toss must be H (only top row is active)
+- second toss can be H or T
 
-### ✅ Event:
+So the event is:
 
 $$
-\text{“The first toss is heads”}
+(H,H), (H,T)
 $$
+
+### Meaning
+
+👉 The first toss is **heads**
 
 ---
 
 ## Case 2
 
-```
-      H   T
-H     .   X
-T     X   .
-```
-
-### Marked outcomes:
+### Graph
 
 $$
-\{(H,T), (T,H)\}
+\begin{array}{c|cc}
+ & H & T \\
+\hline
+H & . & X \\
+T & X & . \\
+\end{array}
 $$
 
-### Interpretation:
+### Step-by-step interpretation
 
-- The two tosses are **different**
+This selects:
+- (H,T)
+- (T,H)
 
-### Event:
+So both outcomes are different.
 
-$$
-\text{“Exactly one head”}
-$$
+### Meaning
+
+👉 The two tosses are **different results** (exactly one head)
 
 ---
 
-#  Final Conceptual Understanding
+# Final idea
 
-- Outcomes → elements of \( \Omega \)  
-- Events → subsets of \( \Omega \)  
+- Rows = first toss
+- Columns = second toss
 
-Logical translation:
-
-- AND → intersection  
-- OR → union  
-- NOT → complement  
-
-👉 This problem shows how to translate **real situations into mathematical formalism**
+Patterns:
+- same results → diagonal
+- exactly one head → anti-diagonal
+- first fixed → row selection
+- second fixed → column selection
