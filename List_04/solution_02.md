@@ -1,227 +1,286 @@
-# Problem 2 — Die × Die (Complete Solution)
+# Problem 2 — Die × Die
 
----
+## Short description
 
-## Question
+We roll two fair dice.
 
-Consider an experiment consisting of two dice rolls.
-
-Representation:
-
-```
-      1 2 3 4 5 6
-1     . . . . . .
-2     . . . . . .
-3     . . . . . .
-4     . . . . . .
-5     . . . . . .
-6     . . . . . .
-```
-
----
-
-### Part A — Marking Events
-
-Mark all outcomes satisfying the statement:
-
-- the sum is equal to 8  
-- the first die is greater than the second  
-- both dice show even numbers  
-- at least one die shows 6  
-- exactly one die shows 1  
-
----
-
-### Part B — Interpretation
-
-Describe the event represented by each case below:
-
-**Case 1**
-
-```
-      1 2 3 4 5 6
-1     . . . . . .
-2     . . . . . .
-3     . . X X X X
-4     . . X X X X
-5     . . X X X X
-6     . . X X X X
-```
-
-**Case 2**
-
-```
-      1 2 3 4 5 6
-1     X . . . . .
-2     . X . . . .
-3     . . X . . .
-4     . . . X . .
-5     . . . . X .
-6     . . . . . X
-```
-
----
-
-# 📌 Solution
-
----
-
-## 1. Sample Space
-
-For two dice, the sample space is:
+Each outcome is an ordered pair:
 
 $$
-\Omega = \{(i,j) \mid i,j \in \{1,2,3,4,5,6\}\}
+(i, j)
 $$
 
-There are:
+where:
+- i = result of first die (row)
+- j = result of second die (column)
 
-$$
-|\Omega| = 6 \times 6 = 36
-$$
+So the sample space is a 6×6 grid of all 36 outcomes.
+
+- X = included in the event  
+- . = not included  
 
 ---
 
-# 🔹 Part A — Marking Events
+# Part A — Marking events
 
 ---
 
-## 1. The Sum Is Equal to 8
+## 1. Sum is equal to 8
 
-We list all pairs where:
+### Analysis
+
+We select all outcomes where:
 
 $$
 i + j = 8
 $$
 
+### Graph
+
 $$
-A = \{(2,6), (3,5), (4,4), (5,3), (6,2)\}
+\begin{array}{c|cccccc}
+ & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+1 & . & . & . & . & . & . \\
+2 & . & . & . & . & . & X \\
+3 & . & . & . & . & X & . \\
+4 & . & . & . & X & . & . \\
+5 & . & . & X & . & . & . \\
+6 & . & X & . & . & . & . \\
+\end{array}
 $$
+
+### Explanation
+
+Each cell represents \((i, j)\).
+
+I check:
+- if \(i + j = 8\) → mark X
+- otherwise → mark .
+
+So the valid outcomes are:
+- (2,6)
+- (3,5)
+- (4,4)
+- (5,3)
+- (6,2)
 
 ---
 
-## 2. The First Die Is Greater Than the Second
+## 2. First die is greater than second
 
-This means:
+### Analysis
 
 $$
 i > j
 $$
 
+### Graph
+
 $$
-B = \{(2,1), (3,1), (3,2), (4,1), (4,2), (4,3), (5,1), (5,2), (5,3), (5,4), (6,1), (6,2), (6,3), (6,4), (6,5)\}
+\begin{array}{c|cccccc}
+ & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+1 & . & . & . & . & . & . \\
+2 & X & . & . & . & . & . \\
+3 & X & X & . & . & . & . \\
+4 & X & X & X & . & . & . \\
+5 & X & X & X & X & . & . \\
+6 & X & X & X & X & X & . \\
+\end{array}
 $$
+
+### Explanation
+
+For each cell:
+- row = i
+- column = j
+
+If row number is bigger than column number → X  
+Otherwise → .
+
+So we get the lower triangle of the table.
 
 ---
 
-## 3. Both Dice Show Even Numbers
+## 3. Both dice show even numbers
 
-Even numbers: \( \{2,4,6\} \)
+### Analysis
+
+Even numbers = {2, 4, 6}
+
+So:
 
 $$
-C = \{(2,2), (2,4), (2,6), (4,2), (4,4), (4,6), (6,2), (6,4), (6,6)\}
+i \in \{2,4,6\}, \quad j \in \{2,4,6\}
 $$
+
+### Graph
+
+$$
+\begin{array}{c|cccccc}
+ & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+1 & . & . & . & . & . & . \\
+2 & . & X & . & X & . & X \\
+3 & . & . & . & . & . & . \\
+4 & . & X & . & X & . & X \\
+5 & . & . & . & . & . & . \\
+6 & . & X & . & X & . & X \\
+\end{array}
+$$
+
+### Explanation
+
+I only allow:
+- even rows (2,4,6)
+- even columns (2,4,6)
+
+Everything else is removed.
 
 ---
 
-## 4. At Least One Die Shows 6
+## 4. At least one die shows 6
 
-All outcomes where at least one coordinate is 6:
+### Analysis
 
 $$
-D = \{(6,1),(6,2),(6,3),(6,4),(6,5),(6,6),
-(1,6),(2,6),(3,6),(4,6),(5,6)\}
+i = 6 \;\; \text{or} \;\; j = 6
 $$
+
+### Graph
+
+$$
+\begin{array}{c|cccccc}
+ & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+1 & . & . & . & . & . & X \\
+2 & . & . & . & . & . & X \\
+3 & . & . & . & . & . & X \\
+4 & . & . & . & . & . & X \\
+5 & . & . & . & . & . & X \\
+6 & X & X & X & X & X & X \\
+\end{array}
+$$
+
+### Explanation
+
+I mark X whenever:
+- row = 6 OR column = 6
+
+So full last row and last column are included.
 
 ---
 
-## 5. Exactly One Die Shows 1
+## 5. Exactly one die shows 1
 
-This includes two cases:
+### Analysis
 
-- first die is 1  
-- second die is 1  
+Two cases:
+- (1, j) where j ≠ 1
+- (i, 1) where i ≠ 1
+
+### Graph
 
 $$
-E = \{(1,2),(1,3),(1,4),(1,5),(1,6),
-(2,1),(3,1),(4,1),(5,1),(6,1)\}
+\begin{array}{c|cccccc}
+ & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+1 & . & X & X & X & X & X \\
+2 & X & . & . & . & . & . \\
+3 & X & . & . & . & . & . \\
+4 & X & . & . & . & . & . \\
+5 & X & . & . & . & . & . \\
+6 & X & . & . & . & . & . \\
+\end{array}
 $$
+
+### Explanation
+
+Exactly one die is 1 means:
+- one coordinate is 1
+- the other is NOT 1
+
+So we include:
+- row 1 except (1,1)
+- column 1 except (1,1)
 
 ---
 
-# 🔹 Part B — Interpretation
+# Part B — Interpretation
 
 ---
 
 ## Case 1
 
-```
-      1 2 3 4 5 6
-1     . . . . . .
-2     . . . . . .
-3     . . X X X X
-4     . . X X X X
-5     . . X X X X
-6     . . X X X X
-```
-
-### Step 1 — Identify pattern
-
-- All X’s are in rows **3, 4, 5, 6**
-- Columns are **3, 4, 5, 6**
-
-### Step 2 — Interpretation
-
-This means:
-
-- both dice are **at least 3**
-
-### ✅ Event:
+### Graph
 
 $$
-\text{“Both dice show values greater than or equal to 3”}
+\begin{array}{c|cccccc}
+ & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+1 & . & . & . & . & . & . \\
+2 & . & . & X & X & X & X \\
+3 & . & X & X & X & X & . \\
+4 & . & X & X & X & X & . \\
+5 & . & X & X & X & X & . \\
+6 & . & . & X & X & X & . \\
+\end{array}
 $$
+
+### Explanation
+
+This selects a **central block of outcomes**.
+
+It means:
+- both dice take values mostly between 2 and 5
+- extreme values (1 and 6) are mostly excluded
+
+So the event describes:
+> outcomes concentrated in the middle range of the sample space
 
 ---
 
 ## Case 2
 
-```
-      1 2 3 4 5 6
-1     X . . . . .
-2     . X . . . .
-3     . . X . . .
-4     . . . X . .
-5     . . . . X .
-6     . . . . . X
-```
-
-### Step 1 — Identify pattern
-
-- Only diagonal elements are marked
-
-### Step 2 — Interpretation
-
-This means:
-
-- the two dice show **the same number**
-
-### ✅ Event:
+### Graph
 
 $$
-\text{“Both dice show the same number”}
+\begin{array}{c|cccccc}
+ & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+1 & X & . & . & . & . & . \\
+2 & . & X & . & . & . & . \\
+3 & . & . & X & . & . & . \\
+4 & . & . & . & X & . & . \\
+5 & . & . & . & . & X & . \\
+6 & . & . & . & . & . & X \\
+\end{array}
 $$
+
+### Explanation
+
+Only diagonal entries are selected:
+
+$$
+(i, i)
+$$
+
+So both dice show the same number.
+
+Meaning:
+> the event is “doubles” (both dice equal)
 
 ---
 
-# 🔍 Final Conceptual Understanding
+# Final idea
 
-- Outcomes → ordered pairs in \( \Omega \)  
-- Events → subsets of \( \Omega \)  
-- Geometry (table view) reveals structure:
+- rows = first die
+- columns = second die
 
-  - diagonal → equality  
-  - above diagonal → \( i < j \)  
-  - below diagonal → \( i > j \)  
-
-👉 Visualization helps understand relationships between outcomes, not just list them.
+Each rule creates a geometric pattern:
+- sum → diagonal
+- inequality → triangle
+- even numbers → grid restriction
+- 6 condition → row/column cross
+- “exactly one” → two intersecting strips
