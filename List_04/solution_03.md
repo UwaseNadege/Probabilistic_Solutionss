@@ -1,226 +1,241 @@
-# Problem 3 — Weather (7 Days × 3 States)
+# Problem 3 — Weather (7 days × 3 states)
+
+## Short description
+
+We model a full week of weather as a table.
+
+- Columns = days of the week (Mon → Sun)
+- Rows = weather states:
+  - S = sunny
+  - C = cloudy
+  - R = rainy
+
+Each cell describes whether a weather state is **allowed or included** for that day in a given event.
+
+Important idea:
+We are NOT listing full weekly sequences.  
+We are describing **constraints on possible weeks**.
 
 ---
 
-## Question
+# General representation
 
-Consider a week described day by day in terms of weather.  
+$$
+\begin{array}{c|ccccccc}
+ & Mon & Tue & Wed & Thu & Fri & Sat & Sun \\
+\hline
+S & . & . & . & . & . & . & . \\
+C & . & . & . & . & . & . & . \\
+R & . & . & . & . & . & . & . \\
+\end{array}
+$$
 
-Each day can be:
-
-- \( S \) — sunny  
-- \( C \) — cloudy  
-- \( R \) — rainy  
-
-Representation:
-
-```
-      Mon Tue Wed Thu Fri Sat Sun
-S     .   .   .   .   .   .   .
-C     .   .   .   .   .   .   .
-R     .   .   .   .   .   .   .
-```
+- X = allowed / included
+- . = not included
 
 ---
 
-### Part A — Marking Events
-
-Mark all outcomes satisfying the statement:
-
-- Monday is sunny  
-- the weekend (Saturday and Sunday) is rainy  
-- it rains on Wednesday or Friday  
-- there is no rainy day during the week  
-- Thursday is not sunny  
+# Part A — Marking events
 
 ---
 
-### Part B — Interpretation
+## 1. Monday is sunny
 
-Describe the event represented by each case below:
+### Graph
 
-**Case 1**
+$$
+\begin{array}{c|ccccccc}
+ & Mon & Tue & Wed & Thu & Fri & Sat & Sun \\
+\hline
+S & X & . & . & . & . & . & . \\
+C & . & . & . & . & . & . & . \\
+R & . & . & . & . & . & . & . \\
+\end{array}
+$$
 
-```
-      Mon Tue Wed Thu Fri Sat Sun
-S     .   .   .   .   .   X   X
-C     .   .   .   .   .   .   .
-R     .   .   .   .   .   .   .
-```
+### Explanation
 
-**Case 2**
+I only restrict Monday:
+- Monday must be S → I mark X in (S, Mon)
+- All other days are free → dots
 
-```
-      Mon Tue Wed Thu Fri Sat Sun
-S     X   X   X   X   X   X   X
-C     X   X   X   X   X   X   X
-R     .   .   .   .   .   .   .
-```
+So I fix ONE condition and leave everything else open.
 
 ---
 
-# 📌 Solution
+## 2. Weekend is rainy
+
+### Graph
+
+$$
+\begin{array}{c|ccccccc}
+ & Mon & Tue & Wed & Thu & Fri & Sat & Sun \\
+\hline
+S & . & . & . & . & . & . & . \\
+C & . & . & . & . & . & . & . \\
+R & . & . & . & . & . & X & X \\
+\end{array}
+$$
+
+### Explanation
+
+Weekend = Saturday + Sunday.
+
+Both must be rainy:
+- Sat → R
+- Sun → R
+
+So I mark R in both weekend columns.
 
 ---
 
-## 1. Sample Space
+## 3. Rain on Wednesday OR Friday
 
-Each day has 3 possible states:
+### Graph
 
 $$
-\Omega = \{S, C, R\}^7
+\begin{array}{c|ccccccc}
+ & Mon & Tue & Wed & Thu & Fri & Sat & Sun \\
+\hline
+S & . & . & . & . & . & . & . \\
+C & . & . & . & . & . & . & . \\
+R & . & . & X & . & X & . & . \\
+\end{array}
 $$
 
-This means:
+### Explanation
 
-- a weekly outcome is a sequence of 7 weather states  
-- each day is independent  
+This is an OR condition:
+- Wednesday is rainy OR Friday is rainy
+
+So I mark both possibilities in the R row.
+
+We are not requiring both, only at least one.
 
 ---
 
-# 🔹 Part A — Marking Events
+## 4. No rainy day during the week
 
----
-
-## 1. Monday Is Sunny
-
-Only sequences where:
+### Graph
 
 $$
-\text{Mon} = S
+\begin{array}{c|ccccccc}
+ & Mon & Tue & Wed & Thu & Fri & Sat & Sun \\
+\hline
+S & X & X & X & X & X & X & X \\
+C & X & X & X & X & X & X & X \\
+R & . & . & . & . & . & . & . \\
+\end{array}
 $$
 
----
+### Explanation
 
-## 2. Weekend Is Rainy
-
-Saturday and Sunday must be:
-
-$$
-\text{Sat} = R,\quad \text{Sun} = R
-$$
-
----
-
-## 3. It Rains on Wednesday or Friday
-
-This means:
-
-$$
-\text{Wed} = R \quad \text{OR} \quad \text{Fri} = R
-$$
-
-(Union of two events)
-
----
-
-## 4. No Rainy Day During the Week
-
-For every day:
-
-$$
-\text{Day} \in \{S, C\}
-$$
+Condition: no R allowed.
 
 So:
-
-- no \( R \) anywhere in the week
-
----
-
-## 5. Thursday Is Not Sunny
-
-$$
-\text{Thu} \in \{C, R\}
-$$
+- I remove all R cells completely
+- Only S and C remain possible for every day
 
 ---
 
-# 🔹 Part B — Interpretation
+## 5. Thursday is not sunny
+
+### Graph
+
+$$
+\begin{array}{c|ccccccc}
+ & Mon & Tue & Wed & Thu & Fri & Sat & Sun \\
+\hline
+S & X & X & X & . & X & X & X \\
+C & X & X & X & X & X & X & X \\
+R & X & X & X & X & X & X & X \\
+\end{array}
+$$
+
+### Explanation
+
+Only restriction:
+- Thursday cannot be S
+
+So:
+- I remove S in Thu column
+- Keep C and R allowed
+
+---
+
+# Part B — Interpretation
 
 ---
 
 ## Case 1
 
-```
-      Mon Tue Wed Thu Fri Sat Sun
-S     .   .   .   .   .   X   X
-C     .   .   .   .   .   .   .
-R     .   .   .   .   .   .   .
-```
-
-### Step 1 — Identify allowed states
-
-- Saturday = S  
-- Sunday = S  
-
-All other days are not restricted.
-
-### Step 2 — Interpretation
-
-This means:
-
-- **Saturday and Sunday are sunny**
-
-### ✅ Event:
+### Graph
 
 $$
-\text{“The weekend is sunny”}
+\begin{array}{c|ccccccc}
+ & Mon & Tue & Wed & Thu & Fri & Sat & Sun \\
+\hline
+S & . & . & . & . & . & X & X \\
+C & . & . & . & . & . & . & . \\
+R & . & . & . & . & . & . & . \\
+\end{array}
 $$
+
+### Explanation
+
+Only Saturday and Sunday are restricted:
+- Both must be sunny
+
+All other days are free:
+- can be S, C, or R
+
+### Meaning
+
+👉 Weekend is sunny, weekdays are unrestricted.
 
 ---
 
 ## Case 2
 
-```
-      Mon Tue Wed Thu Fri Sat Sun
-S     X   X   X   X   X   X   X
-C     X   X   X   X   X   X   X
-R     .   .   .   .   .   .   .
-```
-
-### Step 1 — Identify pattern
-
-- All days allow only \( S \) or \( C \)  
-- No \( R \) is allowed at all  
-
-### Step 2 — Interpretation
-
-This means:
-
-- **there is no rainy day during the entire week**
-
-### ✅ Event:
+### Graph
 
 $$
-\text{“No rainy day during the week”}
+\begin{array}{c|ccccccc}
+ & Mon & Tue & Wed & Thu & Fri & Sat & Sun \\
+\hline
+S & X & X & X & X & X & X & X \\
+C & X & X & X & X & X & X & X \\
+R & . & . & . & . & . & . & . \\
+\end{array}
 $$
 
----
+### Explanation
 
-#  Final Conceptual Understanding
+- R is completely removed everywhere
+- Only S and C are allowed for all days
 
-- Each week is an element of \( \Omega = \{S,C,R\}^7 \)
-- Each event is a **subset of sequences**
+### Meaning
 
----
-
-### Key Ideas:
-
-- Each column = one day  
-- Each row = possible state  
-- Marking = **allowed outcomes**
+👉 There is no rainy day in the entire week.
 
 ---
 
-### Logical Meaning:
+# Final idea
 
-| Statement | Meaning |
-|----------|--------|
-| AND | intersection |
-| OR | union |
-| NOT | complement |
+- Columns = time (days)
+- Rows = weather states
+- X = allowed condition
+- . = excluded condition
+
+We translate sentences into restrictions:
+
+- AND → multiple constraints
+- OR → multiple allowed positions
+- NOT → remove states
+- “no X” → remove entire row
 
 ---
 
-👉 This representation allows us to **see structure across time**, not just list sequences.
+# Final takeaway
+
+We are not just filling tables — we are converting language into structured mathematical constraints on a sample space.
