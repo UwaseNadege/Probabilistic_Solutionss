@@ -1,3 +1,7 @@
-# Solution
+## PROJECT 
+implemented using HTML + JavaScript
+Chart.js used for visualization
+allows parameter comparison
+computes probabilities numerically
 
-## Task 1
+file:///C:/Users/uwase/OneDrive/Desktop/preview.html
