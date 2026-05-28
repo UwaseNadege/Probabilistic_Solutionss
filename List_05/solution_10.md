@@ -56,8 +56,8 @@ $$
 
 ### Parameters:
 
-- \( \mu \): mean (center of distribution)
-- \( \sigma^2 \): variance (spread of distribution)
+- $$\( \mu \)$$: mean (center of distribution)
+- $$\( \sigma^2 \)$$: variance (spread of distribution)
 
 ---
 
